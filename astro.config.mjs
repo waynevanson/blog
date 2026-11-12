@@ -11,6 +11,11 @@ export default defineConfig({
   output: 'server',
   adapter: node({ mode: 'standalone' }),
   integrations: [react(), keystatic()],
+  security: {
+    // Trust the home server's reverse proxy, so OAuth callbacks and absolute
+    // URLs are built with the public HTTPS origin rather than localhost.
+    allowedDomains: [{ hostname: 'blog.waynevanson.com', protocol: 'https' }],
+  },
   vite: {
     server: {
       // Keystatic's GitHub OAuth callback needs a stable origin. The integration
