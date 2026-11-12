@@ -26,7 +26,7 @@ export async function getPosts(): Promise<PostSummary[]> {
       description: entry.description,
       publishedAt: entry.publishedAt,
     }))
-    .sort((a, b) => (a.publishedAt ?? '') < (b.publishedAt ?? '') ? 1 : -1);
+    .sort((a, b) => (b.publishedAt ?? '').localeCompare(a.publishedAt ?? ''));
 }
 
 export async function getPost(slug: string): Promise<Post | null> {
