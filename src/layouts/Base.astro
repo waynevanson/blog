@@ -1,0 +1,46 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  canonical?: string;
+}
+
+const { title, description, canonical } = Astro.props;
+const site = Astro.site ?? new URL('https://blog.waynevanson.com');
+const canonicalURL = canonical ? new URL(canonical, site) : new URL(Astro.url.pathname, site);
+---
+
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title === 'Wayne Van Son' ? title : `${title} — Wayne Van Son`}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="alternate" type="application/rss+xml" title="Wayne Van Son" href="/rss.xml" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="wordmark" href="/">Wayne Van Son</a>
+      <nav>
+        <a href="/">Posts</a>
+        <a href="/rss.xml">RSS</a>
+        <a href="/keystatic">Admin</a>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <p>&copy; {new Date().getFullYear()} Wayne Van Son</p>
+      <p>Built with Astro and Keystatic.</p>
+    </footer>
+  </body>
+</html>

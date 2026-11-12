@@ -1,0 +1,37 @@
+---
+title: Hello, world
+description: A first post, and a note on how this site is put together.
+publishedAt: 2026-11-12
+draft: false
+---
+
+Welcome to my new corner of the internet. This site is a statically-typed Astro
+app served from the home server, with [Keystatic](https://keystatic.com) running
+as the CMS.
+
+## How it works
+
+Posts live in a git repository at
+[waynevanson/blog](https://github.com/waynevanson/blog). Keystatic runs in GitHub
+mode: signing in through the admin UI lets you edit entries, and saving commits
+them straight to the repository.
+
+The server keeps a shallow checkout of that repository and reads content from it
+at request time, so publishing a post makes it live without a rebuild.
+
+- Content: `content/posts/*.mdoc`
+- Admin: [`/keystatic`](/keystatic)
+- Feed: [`/rss.xml`](/rss.xml)
+
+```mdoc
+---
+title: Hello, world
+description: A first post.
+publishedAt: 2026-11-12
+draft: false
+---
+
+Welcome to my new corner of the internet.
+```
+
+More to come.

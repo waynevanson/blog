@@ -1,0 +1,28 @@
+---
+import Base from '../../layouts/Base.astro';
+import { formatDate, getPost, renderMarkdoc } from '../../lib/posts';
+
+const { slug } = Astro.params;
+const post = slug ? await getPost(slug) : null;
+
+if (!post) {
+  return Astro.rewrite('/404');
+}
+
+const html = renderMarkdoc(post.content.node);
+---
+
+<Base title={post.title} description={post.description} canonical={`/posts/${slug}/`}>
+  <article>
+    <header class="post-header">
+      <a class="back-link" href="/">← All posts</a>
+      {post.publishedAt && (
+        <time datetime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
+      )}
+      <h1>{post.title}</h1>
+      {post.description && <p>{post.description}</p>}
+    </header>
+
+    <div class="post-body" set:html={html} />
+  </article>
+</Base>
