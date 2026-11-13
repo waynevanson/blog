@@ -9,6 +9,8 @@ Creating software that is high quality and sustained over the long term is chall
 
 Property based testing is when we parameterize the inputs of a test, generate the inputs and expect the outputs to be the same relative to the inputs. This is very useful as it can catch regressions for situations we may not have thought about.
 
+## Example
+
 ```ts
 // what we're testing, simple add function
 function add(left: number, right, number) {
@@ -49,4 +51,18 @@ for (let i = 0; i < 1_000 i++) {
 }
 ```
 
-Our first test suite won't catch this, but our second will.
+Our first test suite won't catch this but our second will eventually, given enough runs.
+
+## Determinism
+
+> Given enough runs
+
+You could run our parameterized test for every value, by replacing `1_000` with `2 * (2 ^ 53)`. That would mean this one test would take ~19 quadrillion turns which doesn't scale when we have apps that contains thousands of tests.
+
+You will catch edge cases, but not every time. That makes these non-deterministic.
+
+#### Snapshot inputs, not outputs
+
+Now that the output is a property (assertions from inputs, testing function and outputs), only our input can be used
+
+A good property based testing framework will save scenarios that failed to the project, which will be replayed on next runs. Save this to your version control system so you don't have regressions.
