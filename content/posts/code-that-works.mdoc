@@ -7,10 +7,26 @@ I've had a myriad of ideas about how to write full proof programs: programs wher
 
 Why?
 
-1. Drift between tests and implementation.
+drift between tests and implementation.
 
 What do we think we need?
 
 State charts, which are state machines (a sum type of states with guards: this state, then that state) but with product types (this state machine and that state machine).
 
-Types at runtime is popular in the JS world nowadays via schemas. Valibot, Zod and many others allow complex runtime reflection
+Types at runtime is popular in the JS world nowadays via schemas for the use of validation. Valibot, Zod and many others allow complex runtime sudo reflection.
+
+We want to extend these schemas to other cases besides validation, like implementing any feature/property based off of that type.
+
+In Rust this is just traits implemented/derived for structs. Serde does this for validation, and clap can extend this for a CLI parser. Can also do things like implement Default, Clone, Hash, Eq, etc.
+
+One thing sometimes missing is constraints, like n > 0 && n < 100 at a reusable or transparentish level built into a language.
+
+I thought about if there was a way to generate tests. Figure out what is need for that and then how to put that in a language, as library or integrated directly.
+
+Things we need to take the best parts of
+
+1. Property based testing.
+1. Model based testing.
+1. Type reflection.
+1. State charts.
+1. Constraint based design.
