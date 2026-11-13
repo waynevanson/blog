@@ -49,6 +49,8 @@ Someone can design the system but every user drives a system differently, which 
 
 I guess that's the difference between functions and types: functions decide when. It should be more proof like types are.
 
+I wonder why they're so separate?
+
 ```plek
 # constriants
 Toggle = Sum {
@@ -57,6 +59,19 @@ Toggle = Sum {
 }
 
 # Implementation -- we decide when to transition for our use case
-App
+App = Impl {
+  Button = Toggle Off
+  Button = Toggle On
+  Button = Toggle Off
+  Button = Toggle On
+}
 
 ```
+
+What about loops?
+
+```plek
+App = While (n => n < 10, n = 0, n => n + 1)
+```
+
+Side effects? That seems hard. Environment needs some kind of constraint too.
