@@ -47,6 +47,12 @@ The NixOS deployment (`modules/custom/services/blog.nix` in the `nix-config` rep
 server, keeps a shallow checkout of this repository at `/var/lib/blog/repo`,
 and proxies it at `blog.waynevanson.com`.
 
+The reverse proxy must forward `Host`, `X-Forwarded-Host`, `X-Forwarded-Proto`,
+and `X-Forwarded-Port` so Astro can trust the public origin (see
+`security.allowedDomains` in `astro.config.mjs`). If those headers are missing,
+`src/middleware.ts` falls back to the configured `site` origin for Keystatic's
+GitHub OAuth login, so the callback URL is never `localhost`.
+
 ## GitHub App
 
 Create a GitHub App at <https://github.com/settings/apps/new>:
