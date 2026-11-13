@@ -46,11 +46,13 @@ Transitions. Programs are proof.s
 How to tell a program which states it can go through explicitly?
 
 ```plek
+# constriants
 Toggle = Sum {
-  Off => Toggle
-  On =>
+  Off => On
+  On => Off
 }
 
+# When to do it, since it's our choice.
 fn main() {
   
 }
