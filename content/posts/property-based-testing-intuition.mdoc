@@ -3,3 +3,50 @@ title: Intuition for Property Based Testing
 publishedAt: 2026-11-13
 draft: true
 ---
+Today we'll go through why property based testing, more introductory than anything.
+
+Creating software that is high quality and sustained over the long term is challenging. Automated testing is one of the tools we use in attempt to eliminate retesting anything that didn't change, and catch errors if our changes are breaking before our consumers see them.
+
+Property based testing is when we parameterize the inputs of a test, generate the inputs and expect the outputs to be the same relative to the inputs. This is very useful as it can catch regressions for situations we may not have thought about.
+
+```ts
+// what we're testing, simple add function
+function add(left: number, right, number) {
+  return left + right
+}
+```
+
+Our static test
+
+```ts
+// inputs not parameterised
+// tests the same 1 scenario only once
+const left = 5
+const right = 7
+const result = add(left, right)
+  
+if (left < result || right < result) {
+  throw new Error("Expected left and right to be less than the result")
+}
+```
+
+Our parameterized test, using inputs to calculate outputs relative to inputs.
+
+```ts
+// inputs parameterised
+// tests 10 different scenarios once each
+for (let i = 0; i < 1_000 i++) {
+  // `Math.random()` is between 0 and 1 inclusively
+  const left = Math.random()
+  const right = Math.random()
+  const result = add(left, right)
+  
+  // Our "property": "is it true for every single value we generate?"
+  // `Math.random()` could be 0, so in theory this could throw
+  if (left < result || right < result)
+    throw new Error("Expected left and right to be less than the result")
+  }
+}
+```
+
+Our first test suite won't catch this, but our second will.
