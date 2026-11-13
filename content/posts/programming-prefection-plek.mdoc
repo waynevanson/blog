@@ -49,6 +49,8 @@ Someone can design the system but every user drives a system differently, which 
 
 I guess that's the difference between functions and types: functions decide when. It should be more proof like types are.
 
+Predicates and constraints are first class citizens.
+
 I wonder why they're so separate?
 
 ```plek
@@ -71,7 +73,23 @@ App = Impl {
 What about loops?
 
 ```plek
-App = While (n => n < 10, n = 0, n => n + 1)
+App = Loop {
+  N = 0
+  N < 10
+  N = N + 1
+  N
+}
 ```
 
-Side effects? That seems hard. Environment needs some kind of constraint too.
+What about For loops? Well I mean it's just what we did before
+
+```plek
+App = Loop {
+  L = List 1 2 3 4 5  
+  N = L.Next
+  N != None
+  
+}
+```
+
+Side effects? That seems hard. Environment needs some kind of constraint too. Feels like I'm making what Haskell wanted to be.
