@@ -1,0 +1,109 @@
+---
+title: Programming is perfection
+publishedAt: 2026-11-13
+draft: true
+---
+## Rant
+
+I've had a myriad of ideas about how to write full proof programs: programs where I can write the definitions once, and it generates full proof implementation and test suites.
+
+Why?
+
+drift between tests and implementation.
+
+What do we think we need?
+
+State charts, which are state machines (a sum type of states with guards: this state, then that state) but with product types (this state machine and that state machine).
+
+Types at runtime is popular in the JS world nowadays via schemas for the use of validation. Valibot, Zod and many others allow complex runtime sudo reflection.
+
+We want to extend these schemas to other cases besides validation, like implementing any feature/property based off of that type.
+
+In Rust this is just traits implemented/derived for structs. Serde does this for validation, and clap can extend this for a CLI parser. Can also do things like implement Default, Clone, Hash, Eq, etc.
+
+One thing sometimes missing is constraints, like n > 0 && n < 100 at a reusable or transparentish level built into a language.
+
+I thought about if there was a way to generate tests. Figure out what is need for that and then how to put that in a language, as library or integrated directly.
+
+Things we need to take the best parts of
+
+1. Property based testing.
+1. Model based testing.
+1. Type reflection.
+1. State charts.
+1. Constraint based design.
+
+This feels impossible but it's a challenge worth considering.
+
+## Challenges
+
+Let's assume a new programming language, because there isn't any other way.
+
+New language called PLEK - decide what it means later. The unit of time it takes for customer acquisition.
+
+Transitions. Programs are proof.s
+
+How to tell a program which states it can go through explicitly?
+
+Someone can design the system but every user drives a system differently, which is why consuming an interface is so different. It is inherent flexibility.
+
+I guess that's the difference between functions and types: functions decide when. It should be more proof like types are.
+
+Predicates and constraints are first class citizens.
+
+What about grouping these constraints up? I guess thats what datatypes are for.
+
+probably need to keep contsraints in the type
+
+we do have constraints in rust, but they're feel more compiler level and not as nice to work with.
+
+like nonzero.
+
+another new type pattern but more integrated.
+
+I feel like we need a smarter compiler.
+
+I wonder why they're so separate?
+
+```plek
+# constriants
+Toggle = Sum {
+  Off
+  On
+} where
+  Off => On
+  On => Off
+
+# Implementation -- we decide when to transition for our use case
+App = Impl {
+  Button = Toggle Off
+  Button = Toggle On
+  Button = Toggle Off
+  Button = Toggle On
+}
+
+```
+
+What about loops?
+
+```plek
+App = Loop {
+  N = 0
+  N = N + 1
+  N
+  N < 10
+}
+```
+
+What about For loops? Well I mean it's just what we did before
+
+```plek
+App = Loop {
+  L = List 1 2 3 4 5  
+  N = List::next L
+  N != None
+  N
+}
+```
+
+Side effects? That seems hard. Environment needs some kind of constraint too. Feels like I'm making what Haskell wanted to be.

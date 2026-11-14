@@ -1,0 +1,82 @@
+---
+title: Intuition for Property Based Testing
+publishedAt: 2026-11-13
+draft: true
+---
+Today we'll go through why property based testing, more introductory than anything.
+
+Creating software that is high quality and sustained over the long term is challenging. Automated testing is one of the tools we use in attempt to eliminate retesting anything that didn't change, and catch errors if our changes are breaking before consumers see them.
+
+Property based testing is when we **parameterize the inputs of a test**, generating the inputs and expect the outputs to be the same **relative to the inputs**. This is very useful as it can catch regressions for situations we may not have thought about.
+
+When there are errors, it will "shrink" down the error to the lowest possible denominators. For numbers this is numbers closest to 0, for strings it's strings with a smaller size. This can generalized to all data structures.
+
+## Example
+
+I've left out the property testing framework and value generation for simplicity.
+
+```ts
+// what we're testing, simple add function
+function add(left: number, right, number) {
+  return left + right
+}
+```
+
+Our static test.
+
+```ts
+// inputs not parameterised
+// tests the same 1 scenario only once
+const left = 5
+const right = 7
+const result = add(left, right)
+  
+if (left < result || right < result) {
+  throw new Error("Expected left and right to be less than the result")
+}
+```
+
+Our parameterized test, using inputs to calculate outputs relative to inputs.
+
+```ts
+// inputs parameterised
+// tests 10 different scenarios once each
+for (let i = 0; i < 1_000 i++) {
+  // `Math.random()` is between 0 and 1 inclusively
+  const left = Math.random()
+  const right = Math.random()
+  const result = add(left, right)
+  
+  // Our "property": "is it true for every single value we generate?"
+  // `Math.random()` could be 0, so in theory this could throw
+  if (left < result || right < result)
+    throw new Error("Expected left and right to be less than the result")
+  }
+}
+```
+
+Our first test suite won't catch this but our second will eventually, given enough runs.
+
+## Determinism
+
+> Given enough runs
+
+You could run our parameterized test for every value, by replacing `1_000` with `2 * (2 ^ 53)`.
+
+That would mean this one test would take ~19 quadrillion turns, which doesn't scale when we have apps that contain thousands of tests.
+
+You will catch edge cases, but not every time. That makes these non-deterministic.
+
+#### Common values
+
+What about those values that you naturally think of when testing, like testing `-1`, `0`, `1`?
+
+In property based testing frameworks, the structure that generates these values will try these first, and if it fails find the lowest value
+
+#### Snapshot inputs, not outputs
+
+Now that the output is a property (assertions from inputs, testing function and outputs), only our input and our testing target changes the outcome. Output snapshots become useless, unless they're tied to the input.
+
+Since the outcome of a test is `PASSED`, assuming the implementation of the target does not change, then the input is the only thing we need to keep track of to replay the test.
+
+A good property based testing framework will save scenarios that failed to the project, which will be replayed on next runs. Save this to your version control system so you don't have regressions.
