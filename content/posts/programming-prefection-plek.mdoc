@@ -51,14 +51,28 @@ I guess that's the difference between functions and types: functions decide when
 
 Predicates and constraints are first class citizens.
 
+What about grouping these constraints up? I guess thats what datatypes are for.
+
+probably need to keep contsraints in the type
+
+we do have constraints in rust, but they're feel more compiler level and not as nice to work with.
+
+like nonzero.
+
+another new type pattern but more integrated.
+
+I feel like we need a smarter compiler.
+
 I wonder why they're so separate?
 
 ```plek
 # constriants
 Toggle = Sum {
+  Off
+  On
+} where
   Off => On
   On => Off
-}
 
 # Implementation -- we decide when to transition for our use case
 App = Impl {
@@ -75,9 +89,9 @@ What about loops?
 ```plek
 App = Loop {
   N = 0
-  N < 10
   N = N + 1
   N
+  N < 10
 }
 ```
 
@@ -86,9 +100,9 @@ What about For loops? Well I mean it's just what we did before
 ```plek
 App = Loop {
   L = List 1 2 3 4 5  
-  N = L.Next
+  N = List::next L
   N != None
-  
+  N
 }
 ```
 
