@@ -1,0 +1,33 @@
+---
+import Base from '../../layouts/Base.astro';
+import { formatDate, getPosts } from '../../lib/posts';
+
+const posts = await getPosts();
+---
+
+<Base title="Posts" description="Notes on software, infrastructure, and whatever else I am tinkering with.">
+  <section class="hero">
+    <h1>Posts</h1>
+    <p>Notes on software, infrastructure, and whatever else I am tinkering with.</p>
+  </section>
+
+  {
+    posts.length === 0 ? (
+      <p class="empty">Nothing published yet.</p>
+    ) : (
+      <ul class="post-list">
+        {posts.map((post) => (
+          <li class="post-card">
+            {post.publishedAt && (
+              <time datetime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
+            )}
+            <h2>
+              <a href={`/posts/${post.slug}/`}>{post.title}</a>
+            </h2>
+            {post.description && <p>{post.description}</p>}
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</Base>

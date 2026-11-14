@@ -9,9 +9,12 @@ the CMS. Content is stored in git, in this repository.
 
 ## Content
 
-Posts live in `content/posts/*.mdoc`. Each entry has a title, description,
-publication date, draft flag, and a Markdoc body. The slug is derived from the
-title and becomes the file name.
+The home page lives in `content/home.yaml`. It holds the heading, intro, and
+social links, all editable from the admin UI under **Home page**.
+
+Posts live in `content/posts/*.mdoc` and are listed at `/posts/`. Each entry has
+a title, description, publication date, draft flag, and a Markdoc body. The slug
+is derived from the title and becomes the file name.
 
 Keystatic runs in `github` mode, so edits made in the admin UI are committed
 straight to `waynevanson/blog` through a GitHub App.

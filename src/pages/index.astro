@@ -1,36 +1,30 @@
 ---
 import Base from '../layouts/Base.astro';
-import { formatDate, getPosts } from '../lib/posts';
+import { getHome } from '../lib/home';
 
-const posts = await getPosts();
+const home = await getHome();
+const paragraphs = home.intro.split(/\n\s*\n/).filter(Boolean);
 ---
 
-<Base
-  title="Wayne Van Son"
-  description="Notes on software, infrastructure, and whatever else I am tinkering with."
->
+<Base title={home.heading} description={home.intro}>
   <section class="hero">
-    <h1>Wayne Van Son</h1>
-    <p>Notes on software, infrastructure, and whatever else I am tinkering with.</p>
+    <h1>{home.heading}</h1>
+    {paragraphs.map((paragraph) => <p>{paragraph}</p>)}
   </section>
 
   {
-    posts.length === 0 ? (
-      <p class="empty">Nothing published yet.</p>
-    ) : (
-      <ul class="post-list">
-        {posts.map((post) => (
-          <li class="post-card">
-            {post.publishedAt && (
-              <time datetime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
-            )}
-            <h2>
-              <a href={`/posts/${post.slug}/`}>{post.title}</a>
-            </h2>
-            {post.description && <p>{post.description}</p>}
+    home.socials.length > 0 && (
+      <ul class="social-list">
+        {home.socials.map((social) => (
+          <li>
+            <a href={social.url} rel="me">
+              {social.label}
+            </a>
           </li>
         ))}
       </ul>
     )
   }
+
+  <p class="more-link"><a href="/posts/">Read the posts →</a></p>
 </Base>

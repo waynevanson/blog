@@ -119,6 +119,44 @@ main {
   font-size: 1.075rem;
 }
 
+.hero p + p {
+  margin-top: 0.85rem;
+}
+
+.social-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0 0 2rem;
+  padding: 0;
+  list-style: none;
+}
+
+.social-list a {
+  display: inline-block;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.social-list a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.more-link {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.more-link a {
+  text-decoration: none;
+}
+
 .post-list {
   display: grid;
   gap: 1.5rem;

@@ -15,7 +15,7 @@ const html = renderMarkdoc(post.content.node);
 <Base title={post.title} description={post.description} canonical={`/posts/${slug}/`}>
   <article>
     <header class="post-header">
-      <a class="back-link" href="/">← All posts</a>
+      <a class="back-link" href="/posts/">← All posts</a>
       {post.publishedAt && (
         <time datetime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
       )}

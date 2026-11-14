@@ -1,9 +1,46 @@
-import { collection, config, fields } from '@keystatic/core';
+import { collection, config, fields, singleton } from '@keystatic/core';
 
 export default config({
   storage: {
     kind: 'github',
     repo: 'waynevanson/blog',
+  },
+  singletons: {
+    home: singleton({
+      label: 'Home page',
+      path: 'content/home',
+      format: { data: 'yaml' },
+      schema: {
+        heading: fields.text({
+          label: 'Heading',
+          defaultValue: 'Wayne Van Son',
+          validation: { isRequired: true },
+        }),
+        intro: fields.text({
+          label: 'Intro',
+          description: 'Shown under the heading on the home page.',
+          multiline: true,
+          validation: { isRequired: true },
+        }),
+        socials: fields.array(
+          fields.object({
+            label: fields.text({
+              label: 'Label',
+              validation: { isRequired: true },
+            }),
+            url: fields.url({
+              label: 'URL',
+              validation: { isRequired: true },
+            }),
+          }),
+          {
+            label: 'Social links',
+            description: 'Links shown on the home page.',
+            itemLabel: (props) => props.fields.label.value || 'Social link',
+          },
+        ),
+      },
+    }),
   },
   collections: {
     posts: collection({
