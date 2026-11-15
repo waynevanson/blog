@@ -21,3 +21,6 @@ result-*
 .vscode/
 .idea/
 .DS_Store
+
+# direnv
+.direnv/

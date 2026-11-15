@@ -8,6 +8,9 @@
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
+      # Pin the Node.js version used by both the package build and the dev
+      # shell. Astro requires >=22.23.4, so use the current LTS line.
+      nodejs = pkgs.nodejs_24;
     in
     {
       packages.${system}.default = pkgs.buildNpmPackage {
@@ -15,6 +18,7 @@
         version = "0.1.0";
 
         src = ./.;
+        inherit nodejs;
         npmDepsHash = "sha256-2hRFVuxvPiitt9P+pTStvKfLMTij3Je9vEL7E/pIHlc=";
 
         # Build-only tooling (types, astro check) is not needed at runtime.
@@ -42,9 +46,9 @@
       };
 
       devShells.${system}.default = pkgs.mkShell {
-        packages = with pkgs; [
-          nodejs_24
-          git
+        packages = [
+          nodejs
+          pkgs.git
         ];
       };
     };

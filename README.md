@@ -27,6 +27,14 @@ npm install
 npm run dev
 ```
 
+Node.js is pinned to `nodejs_24` in `flake.nix`. With [direnv] and
+[nix-direnv] installed, `.envrc` activates the dev shell automatically (run
+`direnv allow` once), so the flake's `node`/`npm` are used instead of any
+system-wide versions.
+
+[direnv]: https://direnv.net
+[nix-direnv]: https://github.com/nix-community/nix-direnv
+
 The admin UI is at <http://127.0.0.1:4321/keystatic>.
 
 To use GitHub mode locally you need the GitHub App credentials:
