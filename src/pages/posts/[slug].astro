@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { formatDate, getPost, renderMarkdoc } from '../../lib/posts';
+import { formatDate, getPost, getSeries, renderMarkdoc } from '../../lib/posts';
 
 const { slug } = Astro.params;
 const post = slug ? await getPost(slug) : null;
@@ -9,6 +9,7 @@ if (!post) {
   return Astro.rewrite('/404');
 }
 
+const series = post.series && slug ? await getSeries(post.series, slug) : null;
 const html = renderMarkdoc(post.content.node);
 ---
 
@@ -22,6 +23,26 @@ const html = renderMarkdoc(post.content.node);
       <h1>{post.title}</h1>
       {post.description && <p>{post.description}</p>}
     </header>
+
+    {series && (
+      <aside class="series" aria-label={`${series.name} series`}>
+        <p class="series-label">
+          {series.position > 0 && <span>Part {series.position} of {series.posts.length}</span>}
+          <span>In the <strong>{series.name}</strong> series</span>
+        </p>
+        <ol class="series-list">
+          {series.posts.map((part) => (
+            <li class:list={{ current: part.slug === slug }}>
+              {part.slug === slug ? (
+                <span>{part.title}</span>
+              ) : (
+                <a href={`/posts/${part.slug}/`}>{part.title}</a>
+              )}
+            </li>
+          ))}
+        </ol>
+      </aside>
+    )}
 
     <div class="post-body" set:html={html} />
   </article>

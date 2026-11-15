@@ -49,7 +49,7 @@ export default config({
       path: 'content/posts/*',
       format: { contentField: 'content' },
       entryLayout: 'content',
-      columns: ['title', 'publishedAt'],
+      columns: ['title', 'publishedAt', 'series'],
       schema: {
         title: fields.slug({
           name: { label: 'Title' },
@@ -71,6 +71,17 @@ export default config({
           label: 'Draft',
           description: 'Drafts are hidden from the site and feeds.',
           defaultValue: false,
+        }),
+        series: fields.text({
+          label: 'Series',
+          description:
+            'Optional. Posts with the same series name are grouped together, in part order.',
+        }),
+        seriesOrder: fields.integer({
+          label: 'Series part',
+          description:
+            'Optional. Where this post sits in the series. Unnumbered posts are ordered by publish date.',
+          validation: { min: 1 },
         }),
         content: fields.markdoc({
           label: 'Content',

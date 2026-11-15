@@ -6,7 +6,17 @@ type RawPost = NonNullable<Awaited<ReturnType<typeof reader.collections.posts.re
 // `content` is only a function until the entry is read with
 // `resolveLinkedFiles: true`, at which point it becomes the parsed Markdoc node.
 export type Post = Omit<RawPost, 'content'> & { content: { node: Node } };
-export type PostSummary = Pick<Post, 'title' | 'description' | 'publishedAt'> & { slug: string };
+export type PostSummary = Pick<
+  Post,
+  'title' | 'description' | 'publishedAt' | 'series' | 'seriesOrder'
+> & { slug: string };
+
+export type PostSeries = {
+  name: string;
+  posts: PostSummary[];
+  /** 1-based position of the current post within the series. */
+  position: number;
+};
 
 export async function getPosts(): Promise<PostSummary[]> {
   const entries = await reader.collections.posts.all();
@@ -18,8 +28,41 @@ export async function getPosts(): Promise<PostSummary[]> {
       title: entry.title,
       description: entry.description,
       publishedAt: entry.publishedAt,
+      series: entry.series,
+      seriesOrder: entry.seriesOrder,
     }))
     .sort((a, b) => (b.publishedAt ?? '').localeCompare(a.publishedAt ?? ''));
+}
+
+/**
+ * Returns the published posts in a series, ordered by part number (posts
+ * without one fall back to publish date), plus the current post's position.
+ */
+export async function getSeries(name: string, currentSlug: string): Promise<PostSeries | null> {
+  const posts = (await getPosts()).filter((post) => post.series === name);
+
+  if (posts.length === 0) {
+    return null;
+  }
+
+  posts.sort((a, b) => {
+    const aOrder = a.seriesOrder ?? Number.POSITIVE_INFINITY;
+    const bOrder = b.seriesOrder ?? Number.POSITIVE_INFINITY;
+
+    if (aOrder !== bOrder) {
+      return aOrder - bOrder;
+    }
+
+    return (a.publishedAt ?? '').localeCompare(b.publishedAt ?? '');
+  });
+
+  const index = posts.findIndex((post) => post.slug === currentSlug);
+
+  return {
+    name,
+    posts,
+    position: index === -1 ? 0 : index + 1,
+  };
 }
 
 export async function getPost(slug: string): Promise<Post | null> {

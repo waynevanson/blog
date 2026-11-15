@@ -243,6 +243,60 @@ main {
   color: var(--muted);
 }
 
+.post-series {
+  margin: 0.35rem 0 0;
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.series {
+  margin: 0 0 2rem;
+  max-width: var(--measure);
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 0.5rem;
+  background: var(--surface);
+  font-size: 0.925rem;
+}
+
+.series-label {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.75rem;
+  margin: 0;
+  color: var(--muted);
+}
+
+.series-label strong {
+  color: var(--text);
+}
+
+.series-list {
+  margin: 0.6rem 0 0;
+  padding-left: 1.35rem;
+}
+
+.series-list li {
+  margin: 0.2rem 0;
+}
+
+.series-list li.current {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.series-list a {
+  text-decoration: none;
+}
+
+.series-list a:hover {
+  text-decoration: underline;
+}
+
 .post-header {
   margin-bottom: 2.5rem;
   max-width: var(--measure);
