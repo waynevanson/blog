@@ -1,27 +1,22 @@
 :root {
   color-scheme: light dark;
-  --background: #faf9f7;
-  --surface: #ffffff;
-  --text: #1c1b1a;
-  --muted: #6b6660;
-  --border: #e6e1da;
-  --accent: #b4541f;
-  --accent-soft: #f4e4d9;
-  --code-bg: #f1ede7;
+  --background: light-dark(#faf9f7, #171614);
+  --surface: light-dark(#ffffff, #1e1d1a);
+  --text: light-dark(#1c1b1a, #ece7e0);
+  --muted: light-dark(#6b6660, #a29a91);
+  --border: light-dark(#e6e1da, #302d29);
+  --accent: light-dark(#b4541f, #f0a067);
+  --accent-soft: light-dark(#f4e4d9, #33251c);
+  --code-bg: light-dark(#f1ede7, #23211d);
   --measure: 42rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #171614;
-    --surface: #1e1d1a;
-    --text: #ece7e0;
-    --muted: #a29a91;
-    --border: #302d29;
-    --accent: #f0a067;
-    --accent-soft: #33251c;
-    --code-bg: #23211d;
-  }
+:root[data-theme='light'] {
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
 }
 
 *,
@@ -67,11 +62,17 @@ a:hover {
 .site-header {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: 1rem;
   padding: 2rem 0 1.25rem;
   border-bottom: 1px solid var(--border);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
 }
 
 .wordmark {
@@ -94,6 +95,47 @@ a:hover {
 
 .site-header nav a:hover {
   color: var(--text);
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.theme-toggle .icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.theme-toggle .icon-sun {
+  display: none;
+}
+
+:root[data-theme='dark'] .theme-toggle .icon-sun {
+  display: block;
+}
+
+:root[data-theme='dark'] .theme-toggle .icon-moon {
+  display: none;
 }
 
 main {

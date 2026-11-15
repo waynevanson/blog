@@ -23,16 +23,62 @@ const canonicalURL = canonical ? new URL(canonical, site) : new URL(Astro.url.pa
     <link rel="canonical" href={canonicalURL} />
     <link rel="alternate" type="application/rss+xml" title="Wayne Van Son" href="/rss.xml" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>
+      // Apply the saved theme (or the system preference) before first paint so
+      // the page never flashes the wrong colours.
+      (() => {
+        const root = document.documentElement;
+        let stored = null;
+        try {
+          stored = localStorage.getItem('theme');
+        } catch {}
+        const system = window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'light';
+        root.dataset.theme =
+          stored === 'light' || stored === 'dark' ? stored : system;
+      })();
+    </script>
   </head>
   <body>
     <header class="site-header">
       <a class="wordmark" href="/">Wayne Van Son</a>
-      <nav>
-        <a href="/">Home</a>
-        <a href="/posts/">Posts</a>
-        <a href="/rss.xml">RSS</a>
-        <a href="/keystatic">Admin</a>
-      </nav>
+      <div class="header-actions">
+        <nav>
+          <a href="/">Home</a>
+          <a href="/posts/">Posts</a>
+          <a href="/rss.xml">RSS</a>
+          <a href="/keystatic">Admin</a>
+        </nav>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle colour theme">
+          <svg
+            class="icon icon-sun"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.75"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="4" />
+            <path
+              d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"
+            />
+          </svg>
+          <svg
+            class="icon icon-moon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.75"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+        </button>
+      </div>
     </header>
 
     <main>
@@ -43,5 +89,47 @@ const canonicalURL = canonical ? new URL(canonical, site) : new URL(Astro.url.pa
       <p>&copy; {new Date().getFullYear()} Wayne Van Son</p>
       <p>Built with Astro and Keystatic.</p>
     </footer>
+
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const button = document.querySelector('[data-theme-toggle]');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+        const readStored = () => {
+          try {
+            const value = localStorage.getItem('theme');
+            return value === 'light' || value === 'dark' ? value : null;
+          } catch {
+            return null;
+          }
+        };
+
+        const apply = (theme) => {
+          root.dataset.theme = theme;
+          if (!button) return;
+
+          const label = theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme';
+          button.setAttribute('aria-label', label);
+          button.setAttribute('title', label);
+        };
+
+        apply(root.dataset.theme === 'dark' ? 'dark' : 'light');
+
+        button?.addEventListener('click', () => {
+          const theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+          apply(theme);
+          try {
+            localStorage.setItem('theme', theme);
+          } catch {}
+        });
+
+        // Follow system changes until the visitor makes an explicit choice.
+        systemDark.addEventListener('change', (event) => {
+          if (readStored()) return;
+          apply(event.matches ? 'dark' : 'light');
+        });
+      })();
+    </script>
   </body>
 </html>
