@@ -1,5 +1,16 @@
 heading: Wayne Van Son
-intro: Notes on software, infrastructure, and whatever else I am tinkering with
+intro: >-
+  Welcome!
+
+
+  I've been writing software since 2019.
+
+
+  My most current endeavors are related to tooling, research and automation via
+  property based testing, Rust and language development.
+
+
+  Also working on a creating the next generation of procurement software.
 socials:
   - label: GitHub
     url: https://github.com/waynevanson
