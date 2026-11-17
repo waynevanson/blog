@@ -5,13 +5,11 @@ draft: true
 ---
 Linting and formatting automation is prevalent in software development, but doesn't scale because it only considers 1 file per rule.
 
-Imagine if we could have have multiple files per rule, applying changes to files where possible?
+## How and why
 
-## Example use cases
+Let's walk through this use case and figure out what we could do, and what capabilities are required.
 
-Here are some use cases I've idealised.
-
-### Styled Components for `vanilla-extract`
+### Example: Styled Components for `vanilla-extract`
 
 Ensures the following.
 
@@ -35,6 +33,8 @@ export function ComponentName() {
 }
 ```
 
+### Capabilities
+
 Additional capabilities this kind of code modification requires:
 
 1. Create, and append new files.
@@ -45,5 +45,5 @@ Additional capabilities this kind of code modification requires:
 This is two fold
 
 1. Some style guide rules are now codebase errors.
+1. Style guide is now an acceptance criteria, available for automation.
 1. AI agents will stop writing bad code since all use cases are the correct way.
-1. 
