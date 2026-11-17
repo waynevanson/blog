@@ -13,14 +13,15 @@ The home page lives in `content/home.yaml`. It holds the heading, intro, and
 social links, all editable from the admin UI under **Home page**.
 
 Posts live in `content/posts/*.mdoc` and are listed at `/posts/`. Each entry has
-a title, description, publication date, draft flag, optional series, optional
-series part number, and a Markdoc body. The slug is derived from the title and
-becomes the file name.
+a title, description, publication date, draft flag, optional series, and a
+Markdoc body. The slug is derived from the title and becomes the file name.
 
 Series live in `content/series/*.yaml` and are selectable from the post editor's
-**Series** field. Give each post in a series a `seriesOrder` to control its
-position; unnumbered posts fall back to publish date. A post that belongs to a
-series shows the other parts and its position at the top of the page.
+**Series** field. The series entry also holds an ordered list of its posts:
+drag posts in the admin UI to set the reading order. That list only orders
+posts whose **Series** field points at the series; posts missing from the list
+fall back to publish date. A post that belongs to a series shows the other
+parts and its position at the top of the page.
 
 Keystatic runs in `github` mode, so edits made in the admin UI are committed
 straight to `waynevanson/blog` through a GitHub App.

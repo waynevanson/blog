@@ -62,6 +62,18 @@ export default config({
           description: 'Optional. Shown alongside the series on a post.',
           multiline: true,
         }),
+        posts: fields.array(
+          fields.relationship({
+            label: 'Post',
+            collection: 'posts',
+          }),
+          {
+            label: 'Posts',
+            description:
+              'Drag to set the reading order. A post is only ordered here if it also selects this series in its Series field.',
+            itemLabel: (props) => props.value ?? 'Post',
+          },
+        ),
       },
     }),
     posts: collection({
@@ -96,13 +108,8 @@ export default config({
         series: fields.relationship({
           label: 'Series',
           collection: 'series',
-          description: 'Optional. Groups this post with the other parts of a series.',
-        }),
-        seriesOrder: fields.integer({
-          label: 'Series part',
           description:
-            'Optional. Where this post sits in the series. Unnumbered posts are ordered by publish date.',
-          validation: { min: 1 },
+            'Optional. Groups this post with the other parts of a series. The reading order is set on the series itself.',
         }),
         content: fields.markdoc({
           label: 'Content',
