@@ -15,7 +15,7 @@ Ensures the following.
 
 1. Namespace import with the namespace `styles`
 1. Import from a separate file adjacent to `Component.tsx`called `Component.css.ts`
-1. Access styles from `styles.[style]`
+1. Access styles via `styles.[style]`
 
 ```ts
 // MyComponent/MyComponent.css.ts
@@ -42,8 +42,11 @@ Additional capabilities this kind of code modification requires:
 
 ## Benefits
 
-This is two fold
-
 1. Some style guide rules are now codebase errors.
 1. Style guide is now an acceptance criteria, available for automation.
 1. AI agents will stop writing bad code since all use cases are the correct way.
+1. "My way or the highway"?
+
+Does this exist already?
+
+kind of. `codemod` the website can do this but it feels clunky, and not precise. It really just feels like scripts even thought there is JSSG. I would prefer something like `ast-grep sdsd` with some mad lang server adjustments.
