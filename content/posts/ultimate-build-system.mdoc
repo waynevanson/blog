@@ -1,0 +1,12 @@
+---
+title: Ultimate build system
+publishedAt: 2026-11-17
+draft: false
+---
+What does the ultimate build system look like?
+
+Without going into the tradeoffs, here's the flow.
+
+1. Create a project at any level in a repo.
+1. Project knows what files to watch to rebuild.
+1. Project delegates all builds to the daemon, which can do the part efficiently.
