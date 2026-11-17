@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { formatDate, getPost, getSeries, renderMarkdoc } from '../../lib/posts';
+import { formatDate, getPost, getSeriesForPost, renderMarkdoc } from '../../lib/posts';
 
 const { slug } = Astro.params;
 const post = slug ? await getPost(slug) : null;
@@ -9,7 +9,7 @@ if (!post) {
   return Astro.rewrite('/404');
 }
 
-const series = post.series && slug ? await getSeries(post.series, slug) : null;
+const series = slug ? await getSeriesForPost(slug) : null;
 const html = renderMarkdoc(post.content.node);
 ---
 

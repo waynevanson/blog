@@ -1,2 +1,4 @@
 name: Research
 description: yeah I'm series black mate
+posts:
+  - codemod-as-linter

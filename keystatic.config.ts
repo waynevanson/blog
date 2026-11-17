@@ -70,7 +70,7 @@ export default config({
           {
             label: 'Posts',
             description:
-              'Drag to set the reading order. A post is only ordered here if it also selects this series in its Series field.',
+              'Drag to set the reading order. Adding a post here puts it in this series.',
             itemLabel: (props) => props.value ?? 'Post',
           },
         ),
@@ -82,7 +82,7 @@ export default config({
       path: 'content/posts/*',
       format: { contentField: 'content' },
       entryLayout: 'content',
-      columns: ['title', 'publishedAt', 'series'],
+      columns: ['title', 'publishedAt'],
       schema: {
         title: fields.slug({
           name: { label: 'Title' },
@@ -104,12 +104,6 @@ export default config({
           label: 'Draft',
           description: 'Drafts are hidden from the site and feeds.',
           defaultValue: false,
-        }),
-        series: fields.relationship({
-          label: 'Series',
-          collection: 'series',
-          description:
-            'Optional. Groups this post with the other parts of a series. The reading order is set on the series itself.',
         }),
         content: fields.markdoc({
           label: 'Content',

@@ -6,7 +6,7 @@ type RawPost = NonNullable<Awaited<ReturnType<typeof reader.collections.posts.re
 // `content` is only a function until the entry is read with
 // `resolveLinkedFiles: true`, at which point it becomes the parsed Markdoc node.
 export type Post = Omit<RawPost, 'content'> & { content: { node: Node } };
-export type PostSummary = Pick<Post, 'title' | 'description' | 'publishedAt' | 'series'> & {
+export type PostSummary = Pick<Post, 'title' | 'description' | 'publishedAt'> & {
   slug: string;
   seriesName: string | null;
 };
@@ -25,7 +25,15 @@ export async function getPosts(): Promise<PostSummary[]> {
     reader.collections.posts.all(),
     reader.collections.series.all(),
   ]);
-  const seriesNames = new Map(seriesEntries.map(({ slug, entry }) => [slug, entry.name]));
+  // A series lists its own posts, so membership flows from series to post.
+  const seriesNames = new Map<string, string>();
+  for (const { entry } of seriesEntries) {
+    for (const postSlug of entry.posts) {
+      if (typeof postSlug === 'string' && !seriesNames.has(postSlug)) {
+        seriesNames.set(postSlug, entry.name);
+      }
+    }
+  }
 
   return entries
     .filter(({ entry }) => !entry.draft)
@@ -34,53 +42,44 @@ export async function getPosts(): Promise<PostSummary[]> {
       title: entry.title,
       description: entry.description,
       publishedAt: entry.publishedAt,
-      series: entry.series,
-      seriesName: entry.series ? (seriesNames.get(entry.series) ?? entry.series) : null,
+      seriesName: seriesNames.get(slug) ?? null,
     }))
     .sort((a, b) => (b.publishedAt ?? '').localeCompare(a.publishedAt ?? ''));
 }
 
 /**
- * Returns the published posts in a series, ordered by the series' own post
- * list (posts missing from that list fall back to publish date), plus the
- * current post's position.
+ * Returns the series that lists `currentSlug`, with its published posts in the
+ * order set on the series, plus the current post's position.
  */
-export async function getSeries(seriesSlug: string, currentSlug: string): Promise<PostSeries | null> {
-  const [allPosts, entry] = await Promise.all([
+export async function getSeriesForPost(currentSlug: string): Promise<PostSeries | null> {
+  const [allPosts, seriesEntries] = await Promise.all([
     getPosts(),
-    reader.collections.series.read(seriesSlug),
+    reader.collections.series.all(),
   ]);
-  // A post's own `series` field is the source of truth for membership; the
-  // series' list only supplies the order.
-  const posts = allPosts.filter((post) => post.series === seriesSlug);
+  const series = seriesEntries.find(({ entry }) =>
+    entry.posts.some((postSlug) => postSlug === currentSlug),
+  );
+
+  if (!series) {
+    return null;
+  }
+
+  const postsBySlug = new Map(allPosts.map((post) => [post.slug, post]));
+  const posts = series.entry.posts
+    .filter((postSlug): postSlug is string => typeof postSlug === 'string')
+    .map((postSlug) => postsBySlug.get(postSlug))
+    .filter((post): post is PostSummary => post !== undefined);
 
   if (posts.length === 0) {
     return null;
   }
 
-  const rank = new Map(
-    (entry?.posts ?? [])
-      .filter((slug): slug is string => typeof slug === 'string')
-      .map((slug, index) => [slug, index]),
-  );
-
-  posts.sort((a, b) => {
-    const aRank = rank.get(a.slug) ?? Number.POSITIVE_INFINITY;
-    const bRank = rank.get(b.slug) ?? Number.POSITIVE_INFINITY;
-
-    if (aRank !== bRank) {
-      return aRank - bRank;
-    }
-
-    return (a.publishedAt ?? '').localeCompare(b.publishedAt ?? '');
-  });
-
   const index = posts.findIndex((post) => post.slug === currentSlug);
 
   return {
-    slug: seriesSlug,
-    name: entry?.name ?? seriesSlug,
-    description: entry?.description ?? null,
+    slug: series.slug,
+    name: series.entry.name,
+    description: series.entry.description,
     posts,
     position: index === -1 ? 0 : index + 1,
   };
