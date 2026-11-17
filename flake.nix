@@ -19,7 +19,7 @@
 
         src = ./.;
         inherit nodejs;
-        npmDepsHash = "sha256-2hRFVuxvPiitt9P+pTStvKfLMTij3Je9vEL7E/pIHlc=";
+        npmDepsHash = "sha256-K5Us7Cy14fmVdPyV+NhCXjnK7K+2pjsj2CAmOBy3hdg=";
 
         # Build-only tooling (types, astro check) is not needed at runtime.
         npmInstallFlags = [ "--omit=dev" ];
