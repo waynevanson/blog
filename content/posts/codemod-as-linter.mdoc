@@ -1,0 +1,49 @@
+---
+title: Codemod as linter
+publishedAt: 2026-11-17
+draft: true
+---
+Linting and formatting automation is prevalent in software development, but doesn't scale because it only considers 1 file per rule.
+
+Imagine if we could have have multiple files per rule, applying changes to files where possible?
+
+## Example use cases
+
+Here are some use cases I've idealised.
+
+### Styled Components for `vanilla-extract`
+
+Ensures the following.
+
+1. Namespace import with the namespace `styles`
+1. Import from a separate file adjacent to `Component.tsx`called `Component.css.ts`
+1. Access styles from `styles.[style]`
+
+```ts
+// MyComponent/MyComponent.css.ts
+export const link = style({
+  color: "bloodorange"
+})
+```
+
+```tsx
+// MyComponent/MyComponent.tsx
+import * as styles from "./ComponentName.css.ts"
+
+export function ComponentName() {
+  return <a href="/" class={styles.link}>Home</a>
+}
+```
+
+Additional capabilities this kind of code modification requires:
+
+1. Create, and append new files.
+1. 
+
+## Benefits
+
+This is two fold
+
+1. Some style guide rules are now codebase errors.
+1. AI agents will stop writing bad code since all use cases are the correct way.
+1. 
