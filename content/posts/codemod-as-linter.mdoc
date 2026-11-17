@@ -3,7 +3,9 @@ title: Codemod as linter
 publishedAt: 2026-11-17
 draft: true
 ---
-Linting and formatting automation is prevalent in software development, but doesn't scale because it only considers 1 file per rule.
+Linting and formatting automation is prevalent in software development, but doesn't scale because it only considers one file per rule. That's a major drawback.
+
+Let's explore what could happen if more files were considered?
 
 ## How and why
 
@@ -49,4 +51,4 @@ Additional capabilities this kind of code modification requires:
 
 Does this exist already?
 
-kind of. `codemod` the website can do this but it feels clunky, and not precise. It really just feels like scripts even thought there is JSSG. I would prefer something like `ast-grep sdsd` with some mad lang server adjustments.
+kind of. `codemod` the website can do this but it feels clunky, and not precise. It really just feels like scripts even thought there is JSSG. I would prefer something like `ast-grep sdsd` with some mad lang server adjustments. And they want all this private shit and I hate that.
