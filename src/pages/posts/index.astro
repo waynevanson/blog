@@ -21,7 +21,7 @@ const posts = await getPosts();
             {post.publishedAt && (
               <time datetime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
             )}
-            {post.series && <p class="post-series">Series: {post.series}</p>}
+            {post.seriesName && <p class="post-series">Series: {post.seriesName}</p>}
             <h2>
               <a href={`/posts/${post.slug}/`}>{post.title}</a>
             </h2>

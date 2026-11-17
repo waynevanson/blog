@@ -43,6 +43,27 @@ export default config({
     }),
   },
   collections: {
+    series: collection({
+      label: 'Series',
+      slugField: 'name',
+      path: 'content/series/*',
+      format: { data: 'yaml' },
+      columns: ['name'],
+      schema: {
+        name: fields.slug({
+          name: { label: 'Name' },
+          slug: {
+            label: 'Slug',
+            description: 'Used to link posts to this series.',
+          },
+        }),
+        description: fields.text({
+          label: 'Description',
+          description: 'Optional. Shown alongside the series on a post.',
+          multiline: true,
+        }),
+      },
+    }),
     posts: collection({
       label: 'Posts',
       slugField: 'title',
@@ -72,10 +93,10 @@ export default config({
           description: 'Drafts are hidden from the site and feeds.',
           defaultValue: false,
         }),
-        series: fields.text({
+        series: fields.relationship({
           label: 'Series',
-          description:
-            'Optional. Posts with the same series name are grouped together, in part order.',
+          collection: 'series',
+          description: 'Optional. Groups this post with the other parts of a series.',
         }),
         seriesOrder: fields.integer({
           label: 'Series part',

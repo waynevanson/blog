@@ -9,17 +9,23 @@ export type Post = Omit<RawPost, 'content'> & { content: { node: Node } };
 export type PostSummary = Pick<
   Post,
   'title' | 'description' | 'publishedAt' | 'series' | 'seriesOrder'
-> & { slug: string };
+> & { slug: string; seriesName: string | null };
 
 export type PostSeries = {
+  slug: string;
   name: string;
+  description: string | null;
   posts: PostSummary[];
   /** 1-based position of the current post within the series. */
   position: number;
 };
 
 export async function getPosts(): Promise<PostSummary[]> {
-  const entries = await reader.collections.posts.all();
+  const [entries, seriesEntries] = await Promise.all([
+    reader.collections.posts.all(),
+    reader.collections.series.all(),
+  ]);
+  const seriesNames = new Map(seriesEntries.map(({ slug, entry }) => [slug, entry.name]));
 
   return entries
     .filter(({ entry }) => !entry.draft)
@@ -29,6 +35,7 @@ export async function getPosts(): Promise<PostSummary[]> {
       description: entry.description,
       publishedAt: entry.publishedAt,
       series: entry.series,
+      seriesName: entry.series ? (seriesNames.get(entry.series) ?? entry.series) : null,
       seriesOrder: entry.seriesOrder,
     }))
     .sort((a, b) => (b.publishedAt ?? '').localeCompare(a.publishedAt ?? ''));
@@ -38,8 +45,8 @@ export async function getPosts(): Promise<PostSummary[]> {
  * Returns the published posts in a series, ordered by part number (posts
  * without one fall back to publish date), plus the current post's position.
  */
-export async function getSeries(name: string, currentSlug: string): Promise<PostSeries | null> {
-  const posts = (await getPosts()).filter((post) => post.series === name);
+export async function getSeries(seriesSlug: string, currentSlug: string): Promise<PostSeries | null> {
+  const posts = (await getPosts()).filter((post) => post.series === seriesSlug);
 
   if (posts.length === 0) {
     return null;
@@ -57,9 +64,12 @@ export async function getSeries(name: string, currentSlug: string): Promise<Post
   });
 
   const index = posts.findIndex((post) => post.slug === currentSlug);
+  const entry = await reader.collections.series.read(seriesSlug);
 
   return {
-    name,
+    slug: seriesSlug,
+    name: entry?.name ?? seriesSlug,
+    description: entry?.description ?? null,
     posts,
     position: index === -1 ? 0 : index + 1,
   };

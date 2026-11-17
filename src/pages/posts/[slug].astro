@@ -30,6 +30,7 @@ const html = renderMarkdoc(post.content.node);
           {series.position > 0 && <span>Part {series.position} of {series.posts.length}</span>}
           <span>In the <strong>{series.name}</strong> series</span>
         </p>
+        {series.description && <p class="series-description">{series.description}</p>}
         <ol class="series-list">
           {series.posts.map((part) => (
             <li class:list={{ current: part.slug === slug }}>
