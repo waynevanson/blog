@@ -153,14 +153,28 @@ export default config({
           description: 'Optional. For example, "45 minutes".',
         }),
         ingredients: fields.array(
-          fields.text({
-            label: 'Ingredient',
-            validation: { isRequired: true },
+          fields.object({
+            component: fields.text({
+              label: 'Component',
+              description:
+                'Optional. Groups these ingredients under a subrecipe, such as "Roux".',
+            }),
+            items: fields.array(
+              fields.text({
+                label: 'Ingredient',
+                validation: { isRequired: true },
+              }),
+              {
+                label: 'Ingredients',
+                itemLabel: (props) => props.value || 'Ingredient',
+              },
+            ),
           }),
           {
             label: 'Ingredients',
-            description: 'One ingredient per item.',
-            itemLabel: (props) => props.value || 'Ingredient',
+            description:
+              'Group ingredients by subrecipe, or leave the component blank for a single list.',
+            itemLabel: (props) => props.fields.component.value || 'Ingredients',
           },
         ),
         content: fields.markdoc({

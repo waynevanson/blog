@@ -44,11 +44,20 @@ const facts = [
 
     <div class="post-body">
       <h2>Ingredients</h2>
-      <ul>
-        {recipe.ingredients.map((ingredient) => (
-          <li>{ingredient}</li>
-        ))}
-      </ul>
+      {
+        recipe.ingredients
+          .filter((group) => group.items.length > 0)
+          .map((group) => (
+            <div class="ingredient-group">
+              {group.component && <h3>{group.component}</h3>}
+              <ul>
+                {group.items.map((ingredient) => (
+                  <li>{ingredient}</li>
+                ))}
+              </ul>
+            </div>
+          ))
+      }
     </div>
 
     <div class="post-body" set:html={html} />

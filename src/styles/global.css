@@ -286,6 +286,15 @@ main {
   font-weight: 600;
 }
 
+.ingredient-group + .ingredient-group {
+  margin-top: 1.5rem;
+}
+
+.post-body .ingredient-group h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+}
+
 .series {
   margin: 0 0 2rem;
   max-width: var(--measure);

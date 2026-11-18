@@ -24,8 +24,11 @@ the page.
 
 Recipes live in `content/recipes/*.mdoc` and are listed at `/recipes/`. Each
 entry has a title, description, publication date, draft flag, optional servings
-and prep/cook times, a list of ingredients, and a Markdoc body for the method.
-The admin UI exposes them under **Recipes**.
+and prep/cook times, ingredient groups, and a Markdoc body for the method.
+Ingredient groups split a recipe by subrecipe — a roux, a filling, a breading —
+and the component label is optional, so a simple recipe is just one unlabelled
+list. The method body supports headings, so its steps can use the same sections.
+The admin UI exposes recipes under **Recipes**.
 
 Keystatic runs in `github` mode, so edits made in the admin UI are committed
 straight to `waynevanson/blog` through a GitHub App.
