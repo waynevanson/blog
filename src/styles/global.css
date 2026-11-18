@@ -74,9 +74,9 @@ body[data-section='recipes'] {
    page never shows a hard seam against the content. It is absolute rather than
    fixed, so the pattern scrolls with the page. */
 body::before {
-  /* Feather width as a share of the viewport, so the fade stays visually
-     proportional at every screen width. */
-  --grid-fade: 10vw;
+  /* Feather width as a share of the viewport, clamped so it stays a gentle
+     fade on small screens and never eats too far into wide ones. */
+  --grid-fade: clamp(6rem, 10vw, 16rem);
   content: '';
   position: absolute;
   top: 0;
