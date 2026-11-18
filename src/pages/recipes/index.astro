@@ -1,0 +1,44 @@
+---
+import Base from '../../layouts/Base.astro';
+import { formatDate } from '../../lib/posts';
+import { getRecipes } from '../../lib/recipes';
+
+const recipes = await getRecipes();
+
+const meta = (recipe: (typeof recipes)[number]) =>
+  [
+    recipe.servings && `Serves ${recipe.servings}`,
+    recipe.prepTime && `${recipe.prepTime} prep`,
+    recipe.cookTime && `${recipe.cookTime} cook`,
+  ]
+    .filter(Boolean)
+    .join(' · ');
+---
+
+<Base title="Recipes" description="Things I cook, written down so I can cook them again.">
+  <section class="hero">
+    <h1>Recipes</h1>
+    <p>Things I cook, written down so I can cook them again.</p>
+  </section>
+
+  {
+    recipes.length === 0 ? (
+      <p class="empty">Nothing cooking yet.</p>
+    ) : (
+      <ul class="post-list">
+        {recipes.map((recipe) => (
+          <li class="post-card">
+            {recipe.publishedAt && (
+              <time datetime={recipe.publishedAt}>{formatDate(recipe.publishedAt)}</time>
+            )}
+            <h2>
+              <a href={`/recipes/${recipe.slug}/`}>{recipe.title}</a>
+            </h2>
+            {recipe.description && <p>{recipe.description}</p>}
+            {meta(recipe) && <p class="recipe-meta">{meta(recipe)}</p>}
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</Base>

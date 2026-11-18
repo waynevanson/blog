@@ -22,6 +22,11 @@ listed there is what puts a post in a series; posts have no series field. A post
 that belongs to a series shows the other parts and its position at the top of
 the page.
 
+Recipes live in `content/recipes/*.mdoc` and are listed at `/recipes/`. Each
+entry has a title, description, publication date, draft flag, optional servings
+and prep/cook times, a list of ingredients, and a Markdoc body for the method.
+The admin UI exposes them under **Recipes**.
+
 Keystatic runs in `github` mode, so edits made in the admin UI are committed
 straight to `waynevanson/blog` through a GitHub App.
 

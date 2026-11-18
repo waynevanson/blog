@@ -111,5 +111,64 @@ export default config({
         }),
       },
     }),
+    recipes: collection({
+      label: 'Recipes',
+      slugField: 'title',
+      path: 'content/recipes/*',
+      format: { contentField: 'content' },
+      entryLayout: 'content',
+      columns: ['title', 'publishedAt'],
+      schema: {
+        title: fields.slug({
+          name: { label: 'Title' },
+          slug: {
+            label: 'Slug',
+            description: 'The URL segment for this recipe.',
+          },
+        }),
+        description: fields.text({
+          label: 'Description',
+          description: 'Shown on the recipes page and above the recipe.',
+          multiline: true,
+        }),
+        publishedAt: fields.date({
+          label: 'Published at',
+          defaultValue: { kind: 'today' },
+        }),
+        draft: fields.checkbox({
+          label: 'Draft',
+          description: 'Drafts are hidden from the site.',
+          defaultValue: false,
+        }),
+        servings: fields.text({
+          label: 'Servings',
+          description: 'Optional. For example, "4 people".',
+        }),
+        prepTime: fields.text({
+          label: 'Prep time',
+          description: 'Optional. For example, "20 minutes".',
+        }),
+        cookTime: fields.text({
+          label: 'Cook time',
+          description: 'Optional. For example, "45 minutes".',
+        }),
+        ingredients: fields.array(
+          fields.text({
+            label: 'Ingredient',
+            validation: { isRequired: true },
+          }),
+          {
+            label: 'Ingredients',
+            description: 'One ingredient per item.',
+            itemLabel: (props) => props.value || 'Ingredient',
+          },
+        ),
+        content: fields.markdoc({
+          label: 'Method',
+          description: 'The steps and any notes.',
+          extension: 'mdoc',
+        }),
+      },
+    }),
   },
 });

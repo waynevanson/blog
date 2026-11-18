@@ -1,0 +1,56 @@
+---
+import Base from '../../layouts/Base.astro';
+import { formatDate } from '../../lib/posts';
+import { getRecipe, renderMarkdoc } from '../../lib/recipes';
+
+const { slug } = Astro.params;
+const recipe = slug ? await getRecipe(slug) : null;
+
+if (!recipe) {
+  return Astro.rewrite('/404');
+}
+
+const html = renderMarkdoc(recipe.content.node);
+const facts = [
+  { label: 'Servings', value: recipe.servings },
+  { label: 'Prep time', value: recipe.prepTime },
+  { label: 'Cook time', value: recipe.cookTime },
+].filter((fact): fact is { label: string; value: string } => Boolean(fact.value));
+---
+
+<Base title={recipe.title} description={recipe.description} canonical={`/recipes/${slug}/`}>
+  <article>
+    <header class="post-header">
+      <a class="back-link" href="/recipes/">← All recipes</a>
+      {recipe.publishedAt && (
+        <time datetime={recipe.publishedAt}>{formatDate(recipe.publishedAt)}</time>
+      )}
+      <h1>{recipe.title}</h1>
+      {recipe.description && <p>{recipe.description}</p>}
+
+      {
+        facts.length > 0 && (
+          <dl class="recipe-facts">
+            {facts.map((fact) => (
+              <div>
+                <dt>{fact.label}</dt>
+                <dd>{fact.value}</dd>
+              </div>
+            ))}
+          </dl>
+        )
+      }
+    </header>
+
+    <div class="post-body">
+      <h2>Ingredients</h2>
+      <ul>
+        {recipe.ingredients.map((ingredient) => (
+          <li>{ingredient}</li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="post-body" set:html={html} />
+  </article>
+</Base>
