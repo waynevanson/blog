@@ -9,9 +9,8 @@
   --accent-soft: light-dark(#f4e4d9, #33251c);
   --code-bg: light-dark(#f1ede7, #23211d);
   --measure: 42rem;
-  /* Thin 48px grid, kept in a custom property so each theme can pick a line
-     colour that stays barely-there against its background. */
-  --grid-lines: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath d='M0 .5H48M.5 0V48' fill='none' stroke='%23e4ded5' stroke-width='1'/%3E%3C/svg%3E");
+  /* Thin 48px grid. The SVG is only a shape mask; --grid-line sets its colour. */
+  --grid-line: #e4ded5;
 }
 
 :root[data-theme='light'] {
@@ -20,7 +19,7 @@
 
 :root[data-theme='dark'] {
   color-scheme: dark;
-  --grid-lines: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath d='M0 .5H48M.5 0V48' fill='none' stroke='%232d2a25' stroke-width='1'/%3E%3C/svg%3E");
+  --grid-line: #2d2a25;
 }
 
 *,
@@ -64,30 +63,51 @@ body::before {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background-image: var(--grid-lines);
-  background-repeat: repeat;
-  background-position: center top;
-  background-size: 48px 48px;
-  -webkit-mask-image: linear-gradient(
-    to right,
-    #000 0%,
-    rgb(0 0 0 / 0.65) 10%,
-    rgb(0 0 0 / 0.2) 40%,
-    rgb(0 0 0 / 0.06) 50%,
-    rgb(0 0 0 / 0.2) 60%,
-    rgb(0 0 0 / 0.65) 90%,
-    #000 100%
-  );
-  mask-image: linear-gradient(
-    to right,
-    #000 0%,
-    rgb(0 0 0 / 0.65) 10%,
-    rgb(0 0 0 / 0.2) 40%,
-    rgb(0 0 0 / 0.06) 50%,
-    rgb(0 0 0 / 0.2) 60%,
-    rgb(0 0 0 / 0.65) 90%,
-    #000 100%
-  );
+  background-color: var(--grid-line);
+  -webkit-mask-image:
+    linear-gradient(
+      to right,
+      #000 0%,
+      rgb(0 0 0 / 0.65) 10%,
+      rgb(0 0 0 / 0.2) 40%,
+      rgb(0 0 0 / 0.06) 50%,
+      rgb(0 0 0 / 0.2) 60%,
+      rgb(0 0 0 / 0.65) 90%,
+      #000 100%
+    ),
+    url('/grid.svg');
+  -webkit-mask-size:
+    100% 100%,
+    48px 48px;
+  -webkit-mask-repeat:
+    no-repeat,
+    repeat;
+  -webkit-mask-position:
+    center,
+    center top;
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(
+      to right,
+      #000 0%,
+      rgb(0 0 0 / 0.65) 10%,
+      rgb(0 0 0 / 0.2) 40%,
+      rgb(0 0 0 / 0.06) 50%,
+      rgb(0 0 0 / 0.2) 60%,
+      rgb(0 0 0 / 0.65) 90%,
+      #000 100%
+    ),
+    url('/grid.svg');
+  mask-size:
+    100% 100%,
+    48px 48px;
+  mask-repeat:
+    no-repeat,
+    repeat;
+  mask-position:
+    center,
+    center top;
+  mask-composite: intersect;
 }
 
 a {
