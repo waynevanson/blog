@@ -1,4 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="288" height="288" viewBox="0 0 288 288">
+  <!-- Tiled envelope ("letter") glyph for the posts section. Coordinates are
+       drawn in a 24x24 box centred on 0,0 and scaled down by 0.5 below. -->
+  <defs>
+    <path
+      id="glyph"
+      d="M-9-7H9A2 2 0 0 1 11-5V5A2 2 0 0 1 9 7H-9A2 2 0 0 1-11 5V-5A2 2 0 0 1-9-7ZM-10-6 0 2.5 10-6"
+    />
+  </defs>
   <g
     fill="none"
     stroke="#000"
@@ -6,77 +14,23 @@
     stroke-linecap="round"
     stroke-linejoin="round"
   >
-    <path
-      transform="translate(24.5 24.5) scale(0.5)"
-      d="M-9 -12H3L9 -6V12H-9ZM3 -12V-6H9M-5 -1H5M-5 3H5M-5 7H1"
-    />
-    <path
-      transform="translate(24.5 120.5) scale(0.5)"
-      d="M-9 -12H3L9 -6V12H-9ZM3 -12V-6H9M-5 -1H5M-5 3H5M-5 7H1"
-    />
-    <path
-      transform="translate(24.5 216.5) scale(0.5)"
-      d="M-9 -12H3L9 -6V12H-9ZM3 -12V-6H9M-5 -1H5M-5 3H5M-5 7H1"
-    />
-    <path
-      transform="translate(72.5 72.5) scale(0.5)"
-      d="M-9 -12H3L9 -6V12H-9ZM3 -12V-6H9M-5 -1H5M-5 3H5M-5 7H1"
-    />
-    <path
-      transform="translate(72.5 168.5) scale(0.5)"
-      d="M-9 -12H3L9 -6V12H-9ZM3 -12V-6H9M-5 -1H5M-5 3H5M-5 7H1"
-    />
-    <path
-      transform="translate(72.5 264.5) scale(0.5)"
-      d="M-9 -12H3L9 -6V12H-9ZM3 -12V-6H9M-5 -1H5M-5 3H5M-5 7H1"
-    />
-    <path
-      transform="translate(120.5 24.5) scale(0.5)"
-      d="M-9 -12H3L9 -6V12H-9ZM3 -12V-6H9M-5 -1H5M-5 3H5M-5 7H1"
-    />
-    <path
-      transform="translate(120.5 120.5) scale(0.5)"
-      d="M-9 -12H3L9 -6V12H-9ZM3 -12V-6H9M-5 -1H5M-5 3H5M-5 7H1"
-    />
-    <path
-      transform="translate(120.5 216.5) scale(0.5)"
-      d="M-9 -12H3L9 -6V12H-9ZM3 -12V-6H9M-5 -1H5M-5 3H5M-5 7H1"
-    />
-    <path
-      transform="translate(168.5 72.5) scale(0.5)"
-      d="M-9 -12H3L9 -6V12H-9ZM3 -12V-6H9M-5 -1H5M-5 3H5M-5 7H1"
-    />
-    <path
-      transform="translate(168.5 168.5) scale(0.5)"
-      d="M-9 -12H3L9 -6V12H-9ZM3 -12V-6H9M-5 -1H5M-5 3H5M-5 7H1"
-    />
-    <path
-      transform="translate(168.5 264.5) scale(0.5)"
-      d="M-9 -12H3L9 -6V12H-9ZM3 -12V-6H9M-5 -1H5M-5 3H5M-5 7H1"
-    />
-    <path
-      transform="translate(216.5 24.5) scale(0.5)"
-      d="M-9 -12H3L9 -6V12H-9ZM3 -12V-6H9M-5 -1H5M-5 3H5M-5 7H1"
-    />
-    <path
-      transform="translate(216.5 120.5) scale(0.5)"
-      d="M-9 -12H3L9 -6V12H-9ZM3 -12V-6H9M-5 -1H5M-5 3H5M-5 7H1"
-    />
-    <path
-      transform="translate(216.5 216.5) scale(0.5)"
-      d="M-9 -12H3L9 -6V12H-9ZM3 -12V-6H9M-5 -1H5M-5 3H5M-5 7H1"
-    />
-    <path
-      transform="translate(264.5 72.5) scale(0.5)"
-      d="M-9 -12H3L9 -6V12H-9ZM3 -12V-6H9M-5 -1H5M-5 3H5M-5 7H1"
-    />
-    <path
-      transform="translate(264.5 168.5) scale(0.5)"
-      d="M-9 -12H3L9 -6V12H-9ZM3 -12V-6H9M-5 -1H5M-5 3H5M-5 7H1"
-    />
-    <path
-      transform="translate(264.5 264.5) scale(0.5)"
-      d="M-9 -12H3L9 -6V12H-9ZM3 -12V-6H9M-5 -1H5M-5 3H5M-5 7H1"
-    />
+    <use href="#glyph" transform="translate(24.5 24.5) scale(0.5)" />
+    <use href="#glyph" transform="translate(24.5 120.5) scale(0.5)" />
+    <use href="#glyph" transform="translate(24.5 216.5) scale(0.5)" />
+    <use href="#glyph" transform="translate(72.5 72.5) scale(0.5)" />
+    <use href="#glyph" transform="translate(72.5 168.5) scale(0.5)" />
+    <use href="#glyph" transform="translate(72.5 264.5) scale(0.5)" />
+    <use href="#glyph" transform="translate(120.5 24.5) scale(0.5)" />
+    <use href="#glyph" transform="translate(120.5 120.5) scale(0.5)" />
+    <use href="#glyph" transform="translate(120.5 216.5) scale(0.5)" />
+    <use href="#glyph" transform="translate(168.5 72.5) scale(0.5)" />
+    <use href="#glyph" transform="translate(168.5 168.5) scale(0.5)" />
+    <use href="#glyph" transform="translate(168.5 264.5) scale(0.5)" />
+    <use href="#glyph" transform="translate(216.5 24.5) scale(0.5)" />
+    <use href="#glyph" transform="translate(216.5 120.5) scale(0.5)" />
+    <use href="#glyph" transform="translate(216.5 216.5) scale(0.5)" />
+    <use href="#glyph" transform="translate(264.5 72.5) scale(0.5)" />
+    <use href="#glyph" transform="translate(264.5 168.5) scale(0.5)" />
+    <use href="#glyph" transform="translate(264.5 264.5) scale(0.5)" />
   </g>
 </svg>
