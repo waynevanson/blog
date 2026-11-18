@@ -32,11 +32,15 @@ const canonicalURL = canonical ? new URL(canonical, site) : new URL(Astro.url.pa
         try {
           stored = localStorage.getItem('theme');
         } catch {}
+        const mode =
+          stored === 'light' || stored === 'dark' || stored === 'system'
+            ? stored
+            : 'system';
         const system = window.matchMedia('(prefers-color-scheme: dark)').matches
           ? 'dark'
           : 'light';
-        root.dataset.theme =
-          stored === 'light' || stored === 'dark' ? stored : system;
+        root.dataset.theme = mode === 'system' ? system : mode;
+        root.dataset.themeMode = mode;
       })();
     </script>
   </head>
@@ -78,6 +82,19 @@ const canonicalURL = canonical ? new URL(canonical, site) : new URL(Astro.url.pa
           >
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
           </svg>
+          <svg
+            class="icon icon-auto"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.75"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <rect x="3" y="4" width="18" height="12" rx="2" />
+            <path d="M8 20h8M12 16v4" />
+          </svg>
         </button>
       </div>
     </header>
@@ -96,39 +113,53 @@ const canonicalURL = canonical ? new URL(canonical, site) : new URL(Astro.url.pa
         const root = document.documentElement;
         const button = document.querySelector('[data-theme-toggle]');
         const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+        const nextMode = { system: 'light', light: 'dark', dark: 'system' };
 
         const readStored = () => {
           try {
             const value = localStorage.getItem('theme');
-            return value === 'light' || value === 'dark' ? value : null;
+            return value === 'light' || value === 'dark' || value === 'system'
+              ? value
+              : null;
           } catch {
             return null;
           }
         };
 
-        const apply = (theme) => {
-          root.dataset.theme = theme;
+        let mode = readStored() ?? 'system';
+
+        const apply = (next) => {
+          const resolved =
+            next === 'system' ? (systemDark.matches ? 'dark' : 'light') : next;
+          root.dataset.theme = resolved;
+          root.dataset.themeMode = next;
           if (!button) return;
 
-          const label = theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme';
+          const target = nextMode[next];
+          const label =
+            target === 'light'
+              ? 'Switch to light theme'
+              : target === 'dark'
+                ? 'Switch to dark theme'
+                : 'Use the system theme';
           button.setAttribute('aria-label', label);
           button.setAttribute('title', label);
         };
 
-        apply(root.dataset.theme === 'dark' ? 'dark' : 'light');
+        apply(mode);
 
         button?.addEventListener('click', () => {
-          const theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
-          apply(theme);
+          mode = nextMode[mode];
+          apply(mode);
           try {
-            localStorage.setItem('theme', theme);
+            localStorage.setItem('theme', mode);
           } catch {}
         });
 
-        // Follow system changes until the visitor makes an explicit choice.
-        systemDark.addEventListener('change', (event) => {
-          if (readStored()) return;
-          apply(event.matches ? 'dark' : 'light');
+        // Follow system changes until the visitor picks light or dark.
+        systemDark.addEventListener('change', () => {
+          if (mode !== 'system') return;
+          apply(mode);
         });
       })();
     </script>

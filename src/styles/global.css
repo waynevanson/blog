@@ -138,6 +138,19 @@ a:hover {
   display: none;
 }
 
+.theme-toggle .icon-auto {
+  display: none;
+}
+
+:root[data-theme-mode='system'] .theme-toggle .icon-auto {
+  display: block;
+}
+
+:root[data-theme-mode='system'] .theme-toggle .icon-sun,
+:root[data-theme-mode='system'] .theme-toggle .icon-moon {
+  display: none;
+}
+
 main {
   flex: 1;
   padding: 2.5rem 0 4rem;
