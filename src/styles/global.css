@@ -9,8 +9,8 @@
   --accent-soft: light-dark(#f4e4d9, #33251c);
   --code-bg: light-dark(#f1ede7, #23211d);
   --measure: 42rem;
-  /* Thin 48px grid. The SVG is only a shape mask; --grid-line sets its colour. */
-  --grid-line: #e4ded5;
+  /* Thin 48px grid. The SVG is plain black and --grid-filter recolours it. */
+  --grid-filter: invert(1) brightness(0.86) sepia(0.12);
 }
 
 :root[data-theme='light'] {
@@ -19,7 +19,7 @@
 
 :root[data-theme='dark'] {
   color-scheme: dark;
-  --grid-line: #2d2a25;
+  --grid-filter: invert(1) brightness(0.18) sepia(0.28);
 }
 
 *,
@@ -70,51 +70,31 @@ body::before {
   transform: translateX(-50%);
   z-index: -1;
   pointer-events: none;
-  background-color: var(--grid-line);
-  -webkit-mask-image:
-    linear-gradient(
-      to right,
-      #000 0%,
-      rgb(0 0 0 / 0.65) 10%,
-      rgb(0 0 0 / 0.2) 40%,
-      rgb(0 0 0 / 0.06) 50%,
-      rgb(0 0 0 / 0.2) 60%,
-      rgb(0 0 0 / 0.65) 90%,
-      #000 100%
-    ),
-    url('/grid.svg');
-  -webkit-mask-size:
-    100% 100%,
-    48px 48px;
-  -webkit-mask-repeat:
-    no-repeat,
-    repeat;
-  -webkit-mask-position:
-    center,
-    center top;
-  -webkit-mask-composite: source-in;
-  mask-image:
-    linear-gradient(
-      to right,
-      #000 0%,
-      rgb(0 0 0 / 0.65) 10%,
-      rgb(0 0 0 / 0.2) 40%,
-      rgb(0 0 0 / 0.06) 50%,
-      rgb(0 0 0 / 0.2) 60%,
-      rgb(0 0 0 / 0.65) 90%,
-      #000 100%
-    ),
-    url('/grid.svg');
-  mask-size:
-    100% 100%,
-    48px 48px;
-  mask-repeat:
-    no-repeat,
-    repeat;
-  mask-position:
-    center,
-    center top;
-  mask-composite: intersect;
+  background-image: url('/grid.svg');
+  background-repeat: repeat;
+  background-position: center top;
+  background-size: 48px 48px;
+  filter: var(--grid-filter);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    #000 0%,
+    rgb(0 0 0 / 0.65) 10%,
+    rgb(0 0 0 / 0.2) 40%,
+    rgb(0 0 0 / 0.06) 50%,
+    rgb(0 0 0 / 0.2) 60%,
+    rgb(0 0 0 / 0.65) 90%,
+    #000 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    #000 0%,
+    rgb(0 0 0 / 0.65) 10%,
+    rgb(0 0 0 / 0.2) 40%,
+    rgb(0 0 0 / 0.06) 50%,
+    rgb(0 0 0 / 0.2) 60%,
+    rgb(0 0 0 / 0.65) 90%,
+    #000 100%
+  );
 }
 
 a {
