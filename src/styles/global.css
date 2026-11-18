@@ -11,7 +11,7 @@
   --measure: 42rem;
   /* Thin 48px grid, kept in a custom property so each theme can pick a line
      colour that stays barely-there against its background. */
-  --grid-lines: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath d='M0 .5H48M.5 0V48' fill='none' stroke='%231c1b1a' stroke-opacity='.06' stroke-width='1'/%3E%3C/svg%3E");
+  --grid-lines: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath d='M0 .5H48M.5 0V48' fill='none' stroke='%23e4ded5' stroke-width='1'/%3E%3C/svg%3E");
 }
 
 :root[data-theme='light'] {
@@ -20,7 +20,7 @@
 
 :root[data-theme='dark'] {
   color-scheme: dark;
-  --grid-lines: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath d='M0 .5H48M.5 0V48' fill='none' stroke='%23ece7e0' stroke-opacity='.05' stroke-width='1'/%3E%3C/svg%3E");
+  --grid-lines: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath d='M0 .5H48M.5 0V48' fill='none' stroke='%232d2a25' stroke-width='1'/%3E%3C/svg%3E");
 }
 
 *,
@@ -71,19 +71,21 @@ body::before {
   -webkit-mask-image: linear-gradient(
     to right,
     #000 0%,
-    rgb(0 0 0 / 0.6) 10%,
-    transparent 42%,
-    transparent 58%,
-    rgb(0 0 0 / 0.6) 90%,
+    rgb(0 0 0 / 0.65) 10%,
+    rgb(0 0 0 / 0.2) 40%,
+    rgb(0 0 0 / 0.06) 50%,
+    rgb(0 0 0 / 0.2) 60%,
+    rgb(0 0 0 / 0.65) 90%,
     #000 100%
   );
   mask-image: linear-gradient(
     to right,
     #000 0%,
-    rgb(0 0 0 / 0.6) 10%,
-    transparent 42%,
-    transparent 58%,
-    rgb(0 0 0 / 0.6) 90%,
+    rgb(0 0 0 / 0.65) 10%,
+    rgb(0 0 0 / 0.2) 40%,
+    rgb(0 0 0 / 0.06) 50%,
+    rgb(0 0 0 / 0.2) 60%,
+    rgb(0 0 0 / 0.65) 90%,
     #000 100%
   );
 }
