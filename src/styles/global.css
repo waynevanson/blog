@@ -55,6 +55,9 @@ body {
   margin: 0 auto;
   padding: 0 1.25rem;
   max-width: 72rem;
+  /* Opaque so the technical grid stays in the page margins rather than
+     bleeding through the body's padding gutters. */
+  background: var(--background);
 }
 
 body[data-section='posts'] {
@@ -65,11 +68,13 @@ body[data-section='recipes'] {
   --grid-icons: url('/icons-cookbook.svg');
 }
 
-/* Technical grid behind everything. It sits strongest at the left and right
-   edges of the viewport and fades into the plain background towards the middle,
-   so the reading column never fights with it. It is absolute rather than fixed,
-   so the pattern scrolls with the page. */
+/* Technical grid behind everything. Since the body is opaque, the grid only
+   shows in the margins beside the 72rem content column. It runs solid to the
+   left and right viewport edges and fades out where it meets the body, so the
+   page never shows a hard seam against the content. It is absolute rather than
+   fixed, so the pattern scrolls with the page. */
 body::before {
+  --grid-fade: 12rem;
   content: '';
   position: absolute;
   top: 0;
@@ -86,22 +91,20 @@ body::before {
   filter: var(--grid-filter);
   -webkit-mask-image: linear-gradient(
     to right,
-    #000 0%,
-    rgb(0 0 0 / 0.65) 10%,
-    rgb(0 0 0 / 0.2) 40%,
-    rgb(0 0 0 / 0.06) 50%,
-    rgb(0 0 0 / 0.2) 60%,
-    rgb(0 0 0 / 0.65) 90%,
+    #000 0,
+    #000 calc(50% - 36rem - var(--grid-fade)),
+    transparent calc(50% - 36rem),
+    transparent calc(50% + 36rem),
+    #000 calc(50% + 36rem + var(--grid-fade)),
     #000 100%
   );
   mask-image: linear-gradient(
     to right,
-    #000 0%,
-    rgb(0 0 0 / 0.65) 10%,
-    rgb(0 0 0 / 0.2) 40%,
-    rgb(0 0 0 / 0.06) 50%,
-    rgb(0 0 0 / 0.2) 60%,
-    rgb(0 0 0 / 0.65) 90%,
+    #000 0,
+    #000 calc(50% - 36rem - var(--grid-fade)),
+    transparent calc(50% - 36rem),
+    transparent calc(50% + 36rem),
+    #000 calc(50% + 36rem + var(--grid-fade)),
     #000 100%
   );
 }
