@@ -9,7 +9,8 @@
   --accent-soft: light-dark(#f4e4d9, #33251c);
   --code-bg: light-dark(#f1ede7, #23211d);
   --measure: 42rem;
-  /* 48px grid with diagonal home outlines; the grid is cut out behind each home. */
+  /* 48px grid with home outlines every 2nd intersection on both diagonals; the
+     grid is cut out behind each home. */
   --grid-filter: invert(1) brightness(0.86) sepia(0.12);
 }
 
@@ -82,7 +83,7 @@ body::before {
   background-image: var(--grid-icons), url('/grid-lines.svg');
   background-repeat: repeat;
   background-position: center top;
-  background-size: 288px 288px;
+  background-size: 576px 576px;
   filter: var(--grid-filter);
   -webkit-mask-image: linear-gradient(
     to right,
