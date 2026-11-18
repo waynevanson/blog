@@ -8,8 +8,6 @@
   --accent: light-dark(#0f7a44, #4ade80);
   --accent-soft: light-dark(#d3f2dd, #10331e);
   --code-bg: light-dark(#f1ede7, #23211d);
-  /* 24px grid with home outlines every 2nd intersection on both diagonals; the
-     grid is cut out behind each home. */
   --grid-filter: invert(1) brightness(0.86) sepia(0.12) hue-rotate(95deg);
 }
 
@@ -55,8 +53,6 @@ body {
   margin: 0 auto;
   padding: 0 1.25rem;
   max-width: 72rem;
-  /* Opaque so the technical grid stays in the page margins rather than
-     bleeding through the body's padding gutters. */
   background: var(--background);
 }
 
@@ -68,15 +64,8 @@ body[data-section='recipes'] {
   --grid-icons: url('/icons-cookbook.svg');
 }
 
-/* Technical grid behind everything. Since the body is opaque, the grid only
-   shows in the margins beside the 72rem content column. It runs solid to the
-   left and right viewport edges and fades out where it meets the body, so the
-   page never shows a hard seam against the content. It is absolute rather than
-   fixed, so the pattern scrolls with the page. */
 body::before {
-  /* Feather width as a share of the viewport, clamped so it stays a gentle
-     fade on small screens and never eats too far into wide ones. */
-  --grid-fade: clamp(6rem, 10vw, 16rem);
+  --grid-fade: clamp(6rem, 20vw, 20vw);
   content: '';
   position: absolute;
   top: 0;
