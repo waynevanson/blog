@@ -443,7 +443,6 @@ main {
 
 .series {
   margin: 0 0 2rem;
-  max-width: var(--measure);
   padding: 1rem 1.25rem;
   border: 1px solid var(--border);
   border-left: 3px solid var(--accent);
@@ -494,7 +493,6 @@ main {
 
 .post-header {
   margin-bottom: 2.5rem;
-  max-width: var(--measure);
 }
 
 .post-header h1 {
@@ -511,7 +509,6 @@ main {
 }
 
 .post-body {
-  max-width: var(--measure);
   font-size: 1.025rem;
 }
 
