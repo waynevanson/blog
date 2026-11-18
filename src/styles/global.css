@@ -9,7 +9,7 @@
   --accent-soft: light-dark(#f4e4d9, #33251c);
   --code-bg: light-dark(#f1ede7, #23211d);
   --measure: 42rem;
-  /* Thin 48px grid. The SVG is plain black and --grid-filter recolours it. */
+  /* 48px grid with diagonal home outlines; the grid is cut out behind each home. */
   --grid-filter: invert(1) brightness(0.86) sepia(0.12);
 }
 
@@ -47,6 +47,7 @@ html {
 }
 
 body {
+  --grid-pattern: url('/grid-home.svg');
   display: flex;
   position: relative;
   min-height: 100vh;
@@ -54,6 +55,14 @@ body {
   margin: 0 auto;
   padding: 0 1.25rem;
   max-width: 56rem;
+}
+
+body[data-section='posts'] {
+  --grid-pattern: url('/grid-document.svg');
+}
+
+body[data-section='recipes'] {
+  --grid-pattern: url('/grid-cookbook.svg');
 }
 
 /* Technical grid behind everything. It sits strongest at the left and right
@@ -70,10 +79,10 @@ body::before {
   transform: translateX(-50%);
   z-index: -1;
   pointer-events: none;
-  background-image: url('/grid.svg');
+  background-image: var(--grid-pattern);
   background-repeat: repeat;
   background-position: center top;
-  background-size: 48px 48px;
+  background-size: 288px 288px;
   filter: var(--grid-filter);
   -webkit-mask-image: linear-gradient(
     to right,
