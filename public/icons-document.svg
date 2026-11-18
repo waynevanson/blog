@@ -14,23 +14,23 @@
     stroke-linecap="round"
     stroke-linejoin="round"
   >
-    <use href="#glyph" transform="translate(24.5 24.5) scale(0.5)" />
-    <use href="#glyph" transform="translate(24.5 120.5) scale(0.5)" />
-    <use href="#glyph" transform="translate(24.5 216.5) scale(0.5)" />
-    <use href="#glyph" transform="translate(72.5 72.5) scale(0.5)" />
-    <use href="#glyph" transform="translate(72.5 168.5) scale(0.5)" />
-    <use href="#glyph" transform="translate(72.5 264.5) scale(0.5)" />
-    <use href="#glyph" transform="translate(120.5 24.5) scale(0.5)" />
-    <use href="#glyph" transform="translate(120.5 120.5) scale(0.5)" />
-    <use href="#glyph" transform="translate(120.5 216.5) scale(0.5)" />
-    <use href="#glyph" transform="translate(168.5 72.5) scale(0.5)" />
-    <use href="#glyph" transform="translate(168.5 168.5) scale(0.5)" />
-    <use href="#glyph" transform="translate(168.5 264.5) scale(0.5)" />
-    <use href="#glyph" transform="translate(216.5 24.5) scale(0.5)" />
-    <use href="#glyph" transform="translate(216.5 120.5) scale(0.5)" />
-    <use href="#glyph" transform="translate(216.5 216.5) scale(0.5)" />
-    <use href="#glyph" transform="translate(264.5 72.5) scale(0.5)" />
-    <use href="#glyph" transform="translate(264.5 168.5) scale(0.5)" />
-    <use href="#glyph" transform="translate(264.5 264.5) scale(0.5)" />
+    <use href="#glyph" transform="translate(24.5 24.5) scale(0.6)" />
+    <use href="#glyph" transform="translate(24.5 120.5) scale(0.6)" />
+    <use href="#glyph" transform="translate(24.5 216.5) scale(0.6)" />
+    <use href="#glyph" transform="translate(72.5 72.5) scale(0.6)" />
+    <use href="#glyph" transform="translate(72.5 168.5) scale(0.6)" />
+    <use href="#glyph" transform="translate(72.5 264.5) scale(0.6)" />
+    <use href="#glyph" transform="translate(120.5 24.5) scale(0.6)" />
+    <use href="#glyph" transform="translate(120.5 120.5) scale(0.6)" />
+    <use href="#glyph" transform="translate(120.5 216.5) scale(0.6)" />
+    <use href="#glyph" transform="translate(168.5 72.5) scale(0.6)" />
+    <use href="#glyph" transform="translate(168.5 168.5) scale(0.6)" />
+    <use href="#glyph" transform="translate(168.5 264.5) scale(0.6)" />
+    <use href="#glyph" transform="translate(216.5 24.5) scale(0.6)" />
+    <use href="#glyph" transform="translate(216.5 120.5) scale(0.6)" />
+    <use href="#glyph" transform="translate(216.5 216.5) scale(0.6)" />
+    <use href="#glyph" transform="translate(264.5 72.5) scale(0.6)" />
+    <use href="#glyph" transform="translate(264.5 168.5) scale(0.6)" />
+    <use href="#glyph" transform="translate(264.5 264.5) scale(0.6)" />
   </g>
 </svg>

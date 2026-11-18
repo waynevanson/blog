@@ -7,75 +7,75 @@
     stroke-linejoin="round"
   >
     <path
-      transform="translate(24.5 24.5) scale(0.5)"
+      transform="translate(24.5 24.5) scale(0.6)"
       d="M-13 -8c5-2 9 0 13 3 4-3 8-5 13-3v17c-5-2-9 0-13 3-4-3-8-5-13-3ZM0 -5v17"
     />
     <path
-      transform="translate(24.5 120.5) scale(0.5)"
+      transform="translate(24.5 120.5) scale(0.6)"
       d="M-13 -8c5-2 9 0 13 3 4-3 8-5 13-3v17c-5-2-9 0-13 3-4-3-8-5-13-3ZM0 -5v17"
     />
     <path
-      transform="translate(24.5 216.5) scale(0.5)"
+      transform="translate(24.5 216.5) scale(0.6)"
       d="M-13 -8c5-2 9 0 13 3 4-3 8-5 13-3v17c-5-2-9 0-13 3-4-3-8-5-13-3ZM0 -5v17"
     />
     <path
-      transform="translate(72.5 72.5) scale(0.5)"
+      transform="translate(72.5 72.5) scale(0.6)"
       d="M-13 -8c5-2 9 0 13 3 4-3 8-5 13-3v17c-5-2-9 0-13 3-4-3-8-5-13-3ZM0 -5v17"
     />
     <path
-      transform="translate(72.5 168.5) scale(0.5)"
+      transform="translate(72.5 168.5) scale(0.6)"
       d="M-13 -8c5-2 9 0 13 3 4-3 8-5 13-3v17c-5-2-9 0-13 3-4-3-8-5-13-3ZM0 -5v17"
     />
     <path
-      transform="translate(72.5 264.5) scale(0.5)"
+      transform="translate(72.5 264.5) scale(0.6)"
       d="M-13 -8c5-2 9 0 13 3 4-3 8-5 13-3v17c-5-2-9 0-13 3-4-3-8-5-13-3ZM0 -5v17"
     />
     <path
-      transform="translate(120.5 24.5) scale(0.5)"
+      transform="translate(120.5 24.5) scale(0.6)"
       d="M-13 -8c5-2 9 0 13 3 4-3 8-5 13-3v17c-5-2-9 0-13 3-4-3-8-5-13-3ZM0 -5v17"
     />
     <path
-      transform="translate(120.5 120.5) scale(0.5)"
+      transform="translate(120.5 120.5) scale(0.6)"
       d="M-13 -8c5-2 9 0 13 3 4-3 8-5 13-3v17c-5-2-9 0-13 3-4-3-8-5-13-3ZM0 -5v17"
     />
     <path
-      transform="translate(120.5 216.5) scale(0.5)"
+      transform="translate(120.5 216.5) scale(0.6)"
       d="M-13 -8c5-2 9 0 13 3 4-3 8-5 13-3v17c-5-2-9 0-13 3-4-3-8-5-13-3ZM0 -5v17"
     />
     <path
-      transform="translate(168.5 72.5) scale(0.5)"
+      transform="translate(168.5 72.5) scale(0.6)"
       d="M-13 -8c5-2 9 0 13 3 4-3 8-5 13-3v17c-5-2-9 0-13 3-4-3-8-5-13-3ZM0 -5v17"
     />
     <path
-      transform="translate(168.5 168.5) scale(0.5)"
+      transform="translate(168.5 168.5) scale(0.6)"
       d="M-13 -8c5-2 9 0 13 3 4-3 8-5 13-3v17c-5-2-9 0-13 3-4-3-8-5-13-3ZM0 -5v17"
     />
     <path
-      transform="translate(168.5 264.5) scale(0.5)"
+      transform="translate(168.5 264.5) scale(0.6)"
       d="M-13 -8c5-2 9 0 13 3 4-3 8-5 13-3v17c-5-2-9 0-13 3-4-3-8-5-13-3ZM0 -5v17"
     />
     <path
-      transform="translate(216.5 24.5) scale(0.5)"
+      transform="translate(216.5 24.5) scale(0.6)"
       d="M-13 -8c5-2 9 0 13 3 4-3 8-5 13-3v17c-5-2-9 0-13 3-4-3-8-5-13-3ZM0 -5v17"
     />
     <path
-      transform="translate(216.5 120.5) scale(0.5)"
+      transform="translate(216.5 120.5) scale(0.6)"
       d="M-13 -8c5-2 9 0 13 3 4-3 8-5 13-3v17c-5-2-9 0-13 3-4-3-8-5-13-3ZM0 -5v17"
     />
     <path
-      transform="translate(216.5 216.5) scale(0.5)"
+      transform="translate(216.5 216.5) scale(0.6)"
       d="M-13 -8c5-2 9 0 13 3 4-3 8-5 13-3v17c-5-2-9 0-13 3-4-3-8-5-13-3ZM0 -5v17"
     />
     <path
-      transform="translate(264.5 72.5) scale(0.5)"
+      transform="translate(264.5 72.5) scale(0.6)"
       d="M-13 -8c5-2 9 0 13 3 4-3 8-5 13-3v17c-5-2-9 0-13 3-4-3-8-5-13-3ZM0 -5v17"
     />
     <path
-      transform="translate(264.5 168.5) scale(0.5)"
+      transform="translate(264.5 168.5) scale(0.6)"
       d="M-13 -8c5-2 9 0 13 3 4-3 8-5 13-3v17c-5-2-9 0-13 3-4-3-8-5-13-3ZM0 -5v17"
     />
     <path
-      transform="translate(264.5 264.5) scale(0.5)"
+      transform="translate(264.5 264.5) scale(0.6)"
       d="M-13 -8c5-2 9 0 13 3 4-3 8-5 13-3v17c-5-2-9 0-13 3-4-3-8-5-13-3ZM0 -5v17"
     />
   </g>
