@@ -31,6 +31,7 @@
 html {
   background: var(--background);
   color: var(--text);
+  overflow-x: clip;
   font-family:
     ui-sans-serif,
     system-ui,
@@ -47,6 +48,7 @@ html {
 
 body {
   display: flex;
+  position: relative;
   min-height: 100vh;
   flex-direction: column;
   margin: 0 auto;
@@ -56,11 +58,16 @@ body {
 
 /* Technical grid behind everything. It sits strongest at the left and right
    edges of the viewport and fades into the plain background towards the middle,
-   so the reading column never fights with it. */
+   so the reading column never fights with it. It is absolute rather than fixed,
+   so the pattern scrolls with the page. */
 body::before {
   content: '';
-  position: fixed;
-  inset: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
   z-index: -1;
   pointer-events: none;
   background-color: var(--grid-line);
