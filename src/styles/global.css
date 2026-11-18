@@ -5,12 +5,12 @@
   --text: light-dark(#1c1b1a, #ece7e0);
   --muted: light-dark(#6b6660, #a29a91);
   --border: light-dark(#e6e1da, #302d29);
-  --accent: light-dark(#b4541f, #f0a067);
-  --accent-soft: light-dark(#f4e4d9, #33251c);
+  --accent: light-dark(#0f7a44, #4ade80);
+  --accent-soft: light-dark(#d3f2dd, #10331e);
   --code-bg: light-dark(#f1ede7, #23211d);
   /* 24px grid with home outlines every 2nd intersection on both diagonals; the
      grid is cut out behind each home. */
-  --grid-filter: invert(1) brightness(0.86) sepia(0.12);
+  --grid-filter: invert(1) brightness(0.86) sepia(0.12) hue-rotate(95deg);
 }
 
 :root[data-theme='light'] {
@@ -19,7 +19,7 @@
 
 :root[data-theme='dark'] {
   color-scheme: dark;
-  --grid-filter: invert(1) brightness(0.18) sepia(0.28);
+  --grid-filter: invert(1) brightness(0.18) sepia(0.28) hue-rotate(95deg);
 }
 
 *,
