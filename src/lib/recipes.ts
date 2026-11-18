@@ -1,13 +1,8 @@
-import type { Node } from '@markdoc/markdoc';
 import { reader } from './cms';
-
-export { renderMarkdoc } from './posts';
 
 type RawRecipe = NonNullable<Awaited<ReturnType<typeof reader.collections.recipes.read>>>;
 
-// `content` is only a function until the entry is read with
-// `resolveLinkedFiles: true`, at which point it becomes the parsed Markdoc node.
-export type Recipe = Omit<RawRecipe, 'content'> & { content: { node: Node } };
+export type Recipe = RawRecipe;
 export type RecipeSummary = Pick<
   Recipe,
   'title' | 'description' | 'publishedAt' | 'servings' | 'prepTime' | 'cookTime'
@@ -31,9 +26,7 @@ export async function getRecipes(): Promise<RecipeSummary[]> {
 }
 
 export async function getRecipe(slug: string): Promise<Recipe | null> {
-  const recipe = (await reader.collections.recipes.read(slug, {
-    resolveLinkedFiles: true,
-  })) as Recipe | null;
+  const recipe = await reader.collections.recipes.read(slug);
 
   if (!recipe || recipe.draft) {
     return null;

@@ -115,8 +115,7 @@ export default config({
       label: 'Recipes',
       slugField: 'title',
       path: 'content/recipes/*',
-      format: { contentField: 'content' },
-      entryLayout: 'content',
+      format: { data: 'yaml' },
       columns: ['title', 'publishedAt'],
       schema: {
         title: fields.slug({
@@ -177,11 +176,44 @@ export default config({
             itemLabel: (props) => props.fields.component.value || 'Ingredients',
           },
         ),
-        content: fields.markdoc({
-          label: 'Method',
-          description: 'The steps and any notes.',
-          extension: 'mdoc',
-        }),
+        method: fields.array(
+          fields.object({
+            component: fields.text({
+              label: 'Component',
+              description:
+                'Optional. Groups these steps under a subrecipe, such as "Make the roux".',
+            }),
+            steps: fields.array(
+              fields.text({
+                label: 'Step',
+                multiline: true,
+                validation: { isRequired: true },
+              }),
+              {
+                label: 'Steps',
+                itemLabel: (props) => props.value || 'Step',
+              },
+            ),
+          }),
+          {
+            label: 'Method',
+            description:
+              'Group steps by subrecipe, or leave the component blank for a single list.',
+            itemLabel: (props) => props.fields.component.value || 'Steps',
+          },
+        ),
+        notes: fields.array(
+          fields.text({
+            label: 'Note',
+            multiline: true,
+            validation: { isRequired: true },
+          }),
+          {
+            label: 'Notes',
+            description: 'Optional. Tips, substitutions, and storage advice.',
+            itemLabel: (props) => props.value || 'Note',
+          },
+        ),
       },
     }),
   },

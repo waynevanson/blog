@@ -22,13 +22,13 @@ listed there is what puts a post in a series; posts have no series field. A post
 that belongs to a series shows the other parts and its position at the top of
 the page.
 
-Recipes live in `content/recipes/*.mdoc` and are listed at `/recipes/`. Each
+Recipes live in `content/recipes/*.yaml` and are listed at `/recipes/`. Each
 entry has a title, description, publication date, draft flag, optional servings
-and prep/cook times, ingredient groups, and a Markdoc body for the method.
-Ingredient groups split a recipe by subrecipe — a roux, a filling, a breading —
-and the component label is optional, so a simple recipe is just one unlabelled
-list. The method body supports headings, so its steps can use the same sections.
-The admin UI exposes recipes under **Recipes**.
+and prep/cook times, ingredient groups, method groups, and notes. There is no
+free-form body: every part of a recipe is a structured field. Ingredient and
+method groups split a recipe by subrecipe — a roux, a filling, a breading — and
+the component label is optional, so a simple recipe is just one unlabelled
+list. The admin UI exposes recipes under **Recipes**.
 
 Keystatic runs in `github` mode, so edits made in the admin UI are committed
 straight to `waynevanson/blog` through a GitHub App.

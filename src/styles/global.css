@@ -313,11 +313,13 @@ main {
   font-weight: 600;
 }
 
-.ingredient-group + .ingredient-group {
+.ingredient-group + .ingredient-group,
+.method-group + .method-group {
   margin-top: 1.5rem;
 }
 
-.post-body .ingredient-group h3 {
+.post-body .ingredient-group h3,
+.post-body .method-group h3 {
   margin: 0 0 0.5rem;
   font-size: 1.05rem;
 }

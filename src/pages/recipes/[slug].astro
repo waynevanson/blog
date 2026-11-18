@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { formatDate } from '../../lib/posts';
-import { getRecipe, renderMarkdoc } from '../../lib/recipes';
+import { getRecipe } from '../../lib/recipes';
 
 const { slug } = Astro.params;
 const recipe = slug ? await getRecipe(slug) : null;
@@ -10,7 +10,8 @@ if (!recipe) {
   return Astro.rewrite('/404');
 }
 
-const html = renderMarkdoc(recipe.content.node);
+const methodGroups = recipe.method.filter((group) => group.steps.length > 0);
+const notes = recipe.notes.filter(Boolean);
 const facts = [
   { label: 'Servings', value: recipe.servings },
   { label: 'Prep time', value: recipe.prepTime },
@@ -68,13 +69,48 @@ const facts = [
       }
     </div>
 
-    <div
-      class="post-body"
-      data-method
-      data-checklist
-      data-storage-key={`step-checks:${slug}`}
-      set:html={html}
-    />
+    {
+      methodGroups.length > 0 && (
+        <div
+          class="post-body"
+          data-checklist
+          data-storage-key={`step-checks:${slug}`}
+        >
+          <h2>Method</h2>
+          {methodGroups.map((group, groupIndex) => (
+            <section class="method-group">
+              {group.component && <h3>{group.component}</h3>}
+              <ol class="steps">
+                {group.steps.map((step, stepIndex) => (
+                  <li class="step">
+                    <input
+                      type="checkbox"
+                      class="step-check"
+                      data-check-key={`${groupIndex}:${stepIndex}`}
+                      aria-label={`Step ${stepIndex + 1}: ${step}`}
+                    />
+                    <span class="step-text">{step}</span>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          ))}
+        </div>
+      )
+    }
+
+    {
+      notes.length > 0 && (
+        <div class="post-body">
+          <h2>Notes</h2>
+          <ul>
+            {notes.map((note) => (
+              <li>{note}</li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
   </article>
 </Base>
 
@@ -118,40 +154,6 @@ const facts = [
       box.addEventListener('change', save);
     }
   };
-
-  // Methods are rendered from Markdoc, so add the step checkboxes here. Only
-  // ordered lists are steps; bullet lists (such as notes) are left alone.
-  const method = document.querySelector<HTMLElement>('[data-method]');
-
-  if (method) {
-    let index = 0;
-
-    for (const item of method.querySelectorAll<HTMLLIElement>('ol > li')) {
-      index += 1;
-
-      const box = document.createElement('input');
-      box.type = 'checkbox';
-      box.className = 'step-check';
-      box.dataset.checkKey = String(index - 1);
-      box.setAttribute(
-        'aria-label',
-        `Step ${index}: ${(item.textContent ?? '').trim()}`,
-      );
-
-      const text = document.createElement('span');
-      text.className = 'step-text';
-      while (item.firstChild) {
-        text.append(item.firstChild);
-      }
-
-      item.append(box, text);
-      item.classList.add('step');
-    }
-
-    for (const list of method.querySelectorAll('ol')) {
-      list.classList.add('steps');
-    }
-  }
 
   for (const container of document.querySelectorAll<HTMLElement>('[data-checklist]')) {
     setupChecklist(container);
