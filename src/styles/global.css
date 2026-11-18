@@ -444,6 +444,10 @@ main {
   font-weight: 600;
 }
 
+.series-list li.current a {
+  color: var(--muted);
+}
+
 .series-list a {
   text-decoration: none;
 }

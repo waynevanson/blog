@@ -34,11 +34,12 @@ const html = renderMarkdoc(post.content.node);
         <ol class="series-list">
           {series.posts.map((part) => (
             <li class:list={{ current: part.slug === slug }}>
-              {part.slug === slug ? (
-                <span>{part.title}</span>
-              ) : (
-                <a href={`/posts/${part.slug}/`}>{part.title}</a>
-              )}
+              <a
+                href={`/posts/${part.slug}/`}
+                aria-current={part.slug === slug ? 'page' : undefined}
+              >
+                {part.title}
+              </a>
             </li>
           ))}
         </ol>
