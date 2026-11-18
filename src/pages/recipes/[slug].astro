@@ -42,17 +42,25 @@ const facts = [
       }
     </header>
 
-    <div class="post-body">
+    <div class="post-body" data-ingredient-list data-storage-key={`ingredient-checks:${slug}`}>
       <h2>Ingredients</h2>
       {
         recipe.ingredients
           .filter((group) => group.items.length > 0)
-          .map((group) => (
+          .map((group, groupIndex) => (
             <div class="ingredient-group">
               {group.component && <h3>{group.component}</h3>}
               <ul>
-                {group.items.map((ingredient) => (
-                  <li>{ingredient}</li>
+                {group.items.map((ingredient, itemIndex) => (
+                  <li>
+                    <label>
+                      <input
+                        type="checkbox"
+                        data-ingredient-key={`${groupIndex}:${itemIndex}`}
+                      />
+                      <span>{ingredient}</span>
+                    </label>
+                  </li>
                 ))}
               </ul>
             </div>
@@ -63,3 +71,43 @@ const facts = [
     <div class="post-body" set:html={html} />
   </article>
 </Base>
+
+<script>
+  // Keep ingredient check-offs for the current tab only, so a half-finished
+  // recipe does not follow the visitor around forever.
+  const list = document.querySelector<HTMLElement>('[data-ingredient-list]');
+  const storageKey = list?.dataset.storageKey;
+
+  if (list && storageKey) {
+    const boxes = Array.from(
+      list.querySelectorAll<HTMLInputElement>('input[type="checkbox"]'),
+    );
+
+    let checked: Record<string, boolean> = {};
+    try {
+      checked = JSON.parse(sessionStorage.getItem(storageKey) ?? '{}') as Record<
+        string,
+        boolean
+      >;
+    } catch {}
+
+    const save = () => {
+      const next: Record<string, boolean> = {};
+      for (const box of boxes) {
+        const key = box.dataset.ingredientKey;
+        if (box.checked && key) {
+          next[key] = true;
+        }
+      }
+
+      try {
+        sessionStorage.setItem(storageKey, JSON.stringify(next));
+      } catch {}
+    };
+
+    for (const box of boxes) {
+      box.checked = Boolean(checked[box.dataset.ingredientKey ?? '']);
+      box.addEventListener('change', save);
+    }
+  }
+</script>
