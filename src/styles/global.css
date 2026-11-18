@@ -326,6 +326,54 @@ main {
   outline-offset: 2px;
 }
 
+.post-body ol.steps {
+  counter-reset: step;
+  margin: 0 0 1.15rem;
+  padding-left: 1.25rem;
+  list-style: none;
+}
+
+.post-body ol.steps > li.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  counter-increment: step;
+}
+
+.post-body ol.steps > li.step::before {
+  order: 2;
+  content: counter(step) '.';
+  min-width: 1.25rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.step-check {
+  order: 1;
+  flex: none;
+  width: 1.05rem;
+  height: 1.05rem;
+  margin: 0.35rem 0 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.step-check:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.step-check:checked + .step-text {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.step-text {
+  order: 3;
+  flex: 1;
+  min-width: 0;
+}
+
 .series {
   margin: 0 0 2rem;
   max-width: var(--measure);
