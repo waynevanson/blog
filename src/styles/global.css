@@ -591,6 +591,11 @@ main {
   margin: 0;
 }
 
+.site-footer .footer-links {
+  display: flex;
+  gap: 1rem;
+}
+
 @media (max-width: 40rem) {
   .site-header {
     padding-top: 1.5rem;

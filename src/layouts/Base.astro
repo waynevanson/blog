@@ -52,7 +52,6 @@ const canonicalURL = canonical ? new URL(canonical, site) : new URL(Astro.url.pa
           <a href="/">Home</a>
           <a href="/posts/">Posts</a>
           <a href="/recipes/">Recipes</a>
-          <a href="/rss.xml">RSS</a>
         </nav>
         <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle colour theme">
           <svg
@@ -104,7 +103,10 @@ const canonicalURL = canonical ? new URL(canonical, site) : new URL(Astro.url.pa
 
     <footer class="site-footer">
       <p>&copy; {new Date().getFullYear()} Wayne Van Son</p>
-      <p><a href="/keystatic">Admin</a></p>
+      <p class="footer-links">
+        <a href="/rss.xml">RSS</a>
+        <a href="/keystatic">Admin</a>
+      </p>
     </footer>
 
     <script is:inline>
