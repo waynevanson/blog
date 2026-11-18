@@ -47,7 +47,7 @@ html {
 }
 
 body {
-  --grid-pattern: url('/grid-home.svg');
+  --grid-icons: url('/icons-home.svg');
   display: flex;
   position: relative;
   min-height: 100vh;
@@ -58,11 +58,11 @@ body {
 }
 
 body[data-section='posts'] {
-  --grid-pattern: url('/grid-document.svg');
+  --grid-icons: url('/icons-document.svg');
 }
 
 body[data-section='recipes'] {
-  --grid-pattern: url('/grid-cookbook.svg');
+  --grid-icons: url('/icons-cookbook.svg');
 }
 
 /* Technical grid behind everything. It sits strongest at the left and right
@@ -79,7 +79,7 @@ body::before {
   transform: translateX(-50%);
   z-index: -1;
   pointer-events: none;
-  background-image: var(--grid-pattern);
+  background-image: var(--grid-icons), url('/grid-lines.svg');
   background-repeat: repeat;
   background-position: center top;
   background-size: 288px 288px;
