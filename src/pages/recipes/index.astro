@@ -28,14 +28,14 @@ const meta = (recipe: (typeof recipes)[number]) =>
       <ul class="post-list">
         {recipes.map((recipe) => (
           <li class="post-card">
-            {recipe.publishedAt && (
-              <time datetime={recipe.publishedAt}>{formatDate(recipe.publishedAt)}</time>
-            )}
-            <h2>
-              <a href={`/recipes/${recipe.slug}/`}>{recipe.title}</a>
-            </h2>
-            {recipe.description && <p>{recipe.description}</p>}
-            {meta(recipe) && <p class="recipe-meta">{meta(recipe)}</p>}
+            <a class="post-card-link" href={`/recipes/${recipe.slug}/`}>
+              {recipe.publishedAt && (
+                <time datetime={recipe.publishedAt}>{formatDate(recipe.publishedAt)}</time>
+              )}
+              <h2>{recipe.title}</h2>
+              {recipe.description && <p>{recipe.description}</p>}
+              {meta(recipe) && <p class="recipe-meta">{meta(recipe)}</p>}
+            </a>
           </li>
         ))}
       </ul>

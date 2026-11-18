@@ -18,14 +18,14 @@ const posts = await getPosts();
       <ul class="post-list">
         {posts.map((post) => (
           <li class="post-card">
-            {post.publishedAt && (
-              <time datetime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
-            )}
-            {post.seriesName && <p class="post-series">Series: {post.seriesName}</p>}
-            <h2>
-              <a href={`/posts/${post.slug}/`}>{post.title}</a>
-            </h2>
-            {post.description && <p>{post.description}</p>}
+            <a class="post-card-link" href={`/posts/${post.slug}/`}>
+              {post.publishedAt && (
+                <time datetime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
+              )}
+              {post.seriesName && <p class="post-series">Series: {post.seriesName}</p>}
+              <h2>{post.title}</h2>
+              {post.description && <p>{post.description}</p>}
+            </a>
           </li>
         ))}
       </ul>
