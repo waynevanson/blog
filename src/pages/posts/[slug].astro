@@ -27,8 +27,10 @@ const html = renderMarkdoc(post.content.node);
     {series && (
       <aside class="series" aria-label={`${series.name} series`}>
         <p class="series-label">
-          {series.position > 0 && <span>Part {series.position} of {series.posts.length}</span>}
-          <span>In the <strong>{series.name}</strong> series</span>
+          {series.position > 0
+            ? `Part ${series.position} of ${series.posts.length} in the `
+            : 'In the '}
+          <strong>{series.name}</strong> series
         </p>
         {series.description && <p class="series-description">{series.description}</p>}
         <ol class="series-list">
