@@ -537,6 +537,7 @@ main {
 
 .back-link {
   display: inline-block;
+  margin-right: 1rem;
   margin-bottom: 1.5rem;
   font-size: 0.9rem;
   text-decoration: none;
