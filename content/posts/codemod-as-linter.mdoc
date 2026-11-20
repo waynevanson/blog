@@ -5,7 +5,7 @@ draft: true
 ---
 Linting and formatting automation is prevalent in software development, but doesn't scale because it only considers one file per rule. That's a major drawback.
 
-Let's explore what could happen if more files were considered?
+Let's explore what could happen if more files were considered.
 
 ## Starting point
 
@@ -83,3 +83,9 @@ What does this change look like?
 Does this exist already?
 
 kind of. `codemod` the website can do this but it feels clunky, and not precise. It really just feels like scripts even thought there is JSSG. I would prefer something like `ast-grep sdsd` with some mad lang server adjustments. And they want all this private shit and I hate that.
+
+Boundaries
+
+If you're a seasoned developer you'll soon start considering which functionality is between which boundary under which constraints. A tool like ast-grep has all rules as 1 file only, with the CLI harness applying these ruels to many files.
+
+We want to extend it with multiple files per rule, and uses rules to find other files.
