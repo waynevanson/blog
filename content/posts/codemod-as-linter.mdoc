@@ -7,7 +7,7 @@ Linting and formatting automation is prevalent in software development, but does
 
 Let's explore what could happen if more files were considered?
 
-## How and why
+## Starting point
 
 Let's walk through this use case and figure out what we could do, and what capabilities are required.
 
@@ -19,11 +19,35 @@ Ensures the following.
 1. Import from a separate file adjacent to `Component.tsx`called `Component.css.ts`
 1. Access styles via `styles.[style]`
 
+#### From
+
 ```ts
-// MyComponent/MyComponent.css.ts
+// DifferentFile.css.ts
+import { style } from "@vanilla-extract/css"
+
 export const link = style({
   color: "bloodorange"
 })
+```
+
+```tsx
+// MyComponent/MyComponent.tsx
+import { link } from "./ComponentName.css.ts"
+
+export function ComponentName() {
+  return <a href="/" class={link}>Home</a>
+}
+```
+
+#### To
+
+```ts
+// MyComponent/MyComponent.css.ts
+import { style } from "@vanilla-extract/css"
+import * as differentFile from "../DifferentFile.css.ts"
+
+// Optionally just move the link style here if only used once
+export const link = style([differentFile.link])
 ```
 
 ```tsx
@@ -35,12 +59,19 @@ export function ComponentName() {
 }
 ```
 
-### Capabilities
+#### Rule steps
 
-Additional capabilities this kind of code modification requires:
+What does this change look like?
 
-1. Create, and append new files.
-1. Share variables for reuse between multiple files.
+1. Find the component file
+1. Finding the component function name
+1. Find all imports where the root implementation is from a `.css.ts` file
+1. Rename the styles import to `* as styles`
+1. Rename the styles import path to `./ComponentName.css.ts`
+1. Reference all styles via `styles.[style]` in the component
+1. Ensure `ComponentName.css.ts` file exists
+1. Import relevant function from the css framework
+1. Create the styles for each element that we reference, either as composed style or a new style.
 
 ## Benefits
 
